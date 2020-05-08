@@ -1,6 +1,6 @@
 {
   "name": "@notion-cms/types",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Notion.so CMS typescript types",
   "author": "Nathan Gaberel <nathan@gnab.fr>",
   "homepage": "",
