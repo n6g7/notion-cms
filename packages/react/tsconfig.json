@@ -3,6 +3,6 @@
   "compilerOptions": {
     "rootDir": "lib",
     "outDir": "build",
-    "jsx": "preserve"
+    "jsx": "react"
   }
 }
