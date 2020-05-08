@@ -7,6 +7,7 @@
   "license": "MIT",
   "main": "build/index.js",
   "types": "build/index.d.ts",
+  "repository": "git@github.com:n6g7/notion-cms.git",
   "directories": {
     "lib": "lib"
   },
