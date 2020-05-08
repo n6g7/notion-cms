@@ -2,7 +2,7 @@ import debug from "debug";
 import { UserBlockValues, DataType } from "@notion-cms/types";
 import { getRecordValues } from "./rpc";
 
-const log = debug("notion-api:parser");
+const log = debug("notion-cms:parser");
 
 export async function parseProperty(
   type: "checkbox",

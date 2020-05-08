@@ -1,10 +1,10 @@
 import debug from "debug";
 import _ from "lodash";
 import { UUID, BlockValues, PageBlockValues } from "@notion-cms/types";
-import { loadPageChunk, queryCollection } from "./rpc";
+import { loadPageChunk, queryCollection, getImageStream } from "./rpc";
 import { parseProperty } from "./parse";
 
-const log = debug("notion-api");
+const log = debug("notion-cms");
 
 export interface LiteCollectionItem<T = any> {
   id: UUID;
@@ -96,6 +96,18 @@ class Notion {
         ].includes(type)
       );
     return { ...item, blocks };
+  }
+
+  async downloadImage(imageUrl: string, path: string) {
+    const fs = require("fs");
+    const stream = await getImageStream(imageUrl, this.token);
+    const dest = fs.createWriteStream(path);
+
+    return new Promise((resolve, reject) => {
+      stream.pipe(dest);
+      stream.on("end", () => resolve());
+      dest.on("error", reject);
+    });
   }
 }
 

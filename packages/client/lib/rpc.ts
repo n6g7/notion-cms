@@ -1,4 +1,5 @@
 import fetch from "isomorphic-unfetch";
+import debug from "debug";
 import {
   Block,
   Collection,
@@ -9,6 +10,8 @@ import {
   CollectionView,
   NotionWrapper,
 } from "@notion-cms/types";
+
+const log = debug("notion-cms:rpc");
 
 // Basics
 
@@ -36,6 +39,24 @@ async function rpc(fnName: string, body = {}, token: string) {
 
   if (res.ok) {
     return res.json();
+  } else {
+    throw new Error(await getError(res));
+  }
+}
+
+const s3Prefix = "https://s3-us-west-2.amazonaws.com/secure.notion-static.com/";
+export async function getImageStream(imageUrl: string, token: string) {
+  const request = imageUrl.startsWith(s3Prefix)
+    ? fetch(`https://www.notion.so/image/${encodeURIComponent(imageUrl)}`, {
+        headers: {
+          cookie: `token_v2=${token}`,
+        },
+      })
+    : fetch(imageUrl);
+  const res = await request;
+
+  if (res.ok) {
+    return res.body;
   } else {
     throw new Error(await getError(res));
   }
