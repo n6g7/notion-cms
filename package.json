@@ -7,6 +7,7 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
+    "build": "lerna run build",
     "setup": "lerna bootstrap",
     "clean": "rm -rf node_modules packages/{types,client,react}/{node_modules,build}",
     "test": "lerna run test"
