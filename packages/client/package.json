@@ -14,6 +14,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "prepublish": "yarn build",
     "pretest": "prettier --check 'lib/*.{ts,tsx}'",
     "test": "tsc"
   },
