@@ -1,0 +1,14 @@
+{
+  "name": "notion-cms",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.20.2",
+    "prettier": "^2.0.5",
+    "typescript": "^3.8.3"
+  },
+  "scripts": {
+    "setup": "lerna bootstrap",
+    "clean": "rm -rf node_modules packages/{types,client,react}/{node_modules,build}",
+    "test": "lerna run test"
+  }
+}

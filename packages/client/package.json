@@ -1,0 +1,34 @@
+{
+  "name": "@notion-cms/client",
+  "version": "0.0.1",
+  "description": "Notion.so CMS client",
+  "author": "Nathan Gaberel <nathan@gnab.fr>",
+  "homepage": "",
+  "license": "MIT",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "scripts": {
+    "build": "tsc",
+    "pretest": "prettier --check 'lib/*.{ts,tsx}'",
+    "test": "tsc"
+  },
+  "dependencies": {
+    "@notion-cms/types": "^0.0.1",
+    "debug": "^4.1.1",
+    "isomorphic-unfetch": "^3.0.0",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.5",
+    "@types/lodash": "^4.14.150"
+  },
+  "keywords": [
+    "notion.so",
+    "cms",
+    "client"
+  ]
+}

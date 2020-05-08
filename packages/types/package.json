@@ -1,0 +1,23 @@
+{
+  "name": "@notion-cms/types",
+  "version": "0.0.1",
+  "description": "Notion.so CMS typescript types",
+  "author": "Nathan Gaberel <nathan@gnab.fr>",
+  "homepage": "",
+  "license": "MIT",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "tsc",
+    "pretest": "prettier --check 'lib/*.{ts,tsx}'",
+    "test": "tsc"
+  },
+  "keywords": [
+    "notion.so",
+    "cms",
+    "types"
+  ]
+}

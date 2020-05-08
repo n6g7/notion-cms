@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "target": "es2017",
+    "skipLibCheck": true,
+    "lib": ["es2017"],
+    "esModuleInterop": true,
+  },
+  "exclude": ["node_modules", "packages/*/node_modules", "packages/*/build"]
+}
