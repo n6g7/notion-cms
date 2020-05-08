@@ -1,6 +1,6 @@
 {
   "name": "@notion-cms/react",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React components to render Notion.so blocks.",
   "author": "Nathan Gaberel <nathan@gnab.fr>",
   "homepage": "",
@@ -16,7 +16,7 @@
     "test": "tsc"
   },
   "dependencies": {
-    "@notion-cms/types": "^0.0.1",
+    "@notion-cms/types": "^0.0.2",
     "react": "^16.13.1"
   },
   "devDependencies": {
