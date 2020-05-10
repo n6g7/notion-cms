@@ -52,9 +52,7 @@ export async function getImageStream(
 ) {
   const notionUrl =
     `https://www.notion.so/image/${encodeURIComponent(imageUrl)}?cache=v2` +
-    width
-      ? `&width=${width}`
-      : "";
+    (width ? `&width=${width}` : "");
   const request = imageUrl.startsWith(s3Prefix)
     ? fetch(notionUrl, {
         headers: {
