@@ -98,9 +98,9 @@ class Notion {
     return { ...item, blocks };
   }
 
-  async downloadImage(imageUrl: string, path: string) {
+  async downloadImage(imageUrl: string, path: string, width?: number) {
     const fs = require("fs");
-    const stream = await getImageStream(imageUrl, this.token);
+    const stream = await getImageStream(imageUrl, this.token, width);
     const dest = fs.createWriteStream(path);
 
     return new Promise((resolve, reject) => {
