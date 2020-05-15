@@ -99,15 +99,17 @@ class Notion {
   }
 
   async downloadImage(imageUrl: string, path: string, width?: number) {
-    const fs = require("fs");
-    const stream = await getImageStream(imageUrl, this.token, width);
-    const dest = fs.createWriteStream(path);
+    const sharp = require("sharp");
+    const stream = await getImageStream(imageUrl, this.token);
 
-    return new Promise((resolve, reject) => {
-      stream.pipe(dest);
-      stream.on("end", () => resolve());
-      dest.on("error", reject);
+    const buffer = await new Promise((resolve, reject) => {
+      const bufs: any[] = [];
+      stream.on("data", (d: any) => bufs.push(d));
+      stream.on("error", reject);
+      stream.on("end", () => resolve(Buffer.concat(bufs)));
     });
+
+    return sharp(buffer).resize(width).webp().toFile(path);
   }
 }
 
