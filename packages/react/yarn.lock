@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@notion-cms/types@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.0.10.tgz#7400a30cdac549d5c6b94d974220f35f1aab1c82"
-  integrity sha512-hNKTMsqFImPBAV68r72GdM1tLlEYGkLbXKQLcaO5w25FOS/Y5dJe4l/4RiVBHR4/tVnp4CEotEDFaGE6LiyP2w==
+"@notion-cms/types@^0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.0.11.tgz#9dfb64616481907c7afbd943223cc47a920b2f51"
+  integrity sha512-g0hIubEDq0Lsy7nUU8gYXWrGoB4ewtiKt9iNU2d3qj2ldJnPlGZvmsdwY6SQ0aQgDnXnNl+pm7Ej1g0EESLwLA==
 
 "@types/prop-types@*":
   version "15.7.3"
