@@ -1,33 +1,46 @@
 import React from "react";
+import debug from "debug";
 import { BlockValues, TextSection, TextModifier } from "@notion-cms/types";
+
+const log = debug("notion-cms:react");
 
 interface Props {
   block: BlockValues;
 }
 
-const modifierTags: Record<TextModifier[0], "strong" | "em"> = {
-  b: "strong",
-  i: "em",
+const applyModifier = (
+  children: JSX.Element,
+  mod: TextModifier
+): JSX.Element => {
+  switch (mod[0]) {
+    case "b":
+      return <strong>{children}</strong>;
+    case "i":
+      return <em>{children}</em>;
+    case "a":
+      return <a href={mod[1]}>{children}</a>;
+    default:
+      log('Ignoring unknown text modifier: "%s"', mod[0]);
+      return children;
+  }
 };
-const Text = (sections: TextSection[]) =>
-  sections
-    ? sections.map(([text, modifiers = []]) => {
-        const NewlinedText = (
-          <React.Fragment>
-            {text
-              .split("\n")
-              .reduce(
-                (arr, text) => [...arr, arr.length > 0 ? <br /> : null, text],
-                []
-              )}
-          </React.Fragment>
-        );
-        return modifiers.reduce((children, mod: TextModifier) => {
-          const Component = modifierTags[mod[0]];
-          return <Component>{children}</Component>;
-        }, NewlinedText);
-      })
-    : "";
+const Text = (sections: TextSection[]) => {
+  if (!sections) return "";
+
+  return sections.map(([text, modifiers = []]) => {
+    const NewlinedText = (
+      <React.Fragment>
+        {text
+          .split("\n")
+          .reduce(
+            (arr, text) => [...arr, arr.length > 0 ? <br /> : null, text],
+            []
+          )}
+      </React.Fragment>
+    );
+    return modifiers.reduce(applyModifier, NewlinedText);
+  });
+};
 
 const Block: React.FC<Props> = ({ block }) => {
   switch (block.type) {

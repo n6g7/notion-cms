@@ -66,7 +66,7 @@ export interface PageBlockValues extends BaseBlockValues {
   };
 }
 
-export type TextModifier = ["b" | "i"];
+export type TextModifier = ["b"] | ["i"] | ["a", string];
 export type TextSection = [string, TextModifier[]];
 
 interface TextBlockValues<T extends BaseBlockValues["type"] = "text">
