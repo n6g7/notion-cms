@@ -27,7 +27,10 @@ class Notion {
     this.token = token;
   }
 
-  async loadCollection(pageId: UUID): Promise<LiteCollectionItem[]> {
+  async loadCollection(
+    pageId: UUID,
+    limit: number = 70
+  ): Promise<LiteCollectionItem[]> {
     const pageData = await loadPageChunk({ pageId }, this.token);
     const [collection] = _.values(pageData.recordMap.collection);
     const [collectionView] = _.values(pageData.recordMap.collection_view);
@@ -35,6 +38,7 @@ class Notion {
       {
         collectionId: collection.value.id,
         collectionViewId: collectionView.value.id,
+        loader: { limit },
       },
       this.token
     );
