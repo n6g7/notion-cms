@@ -79,9 +79,10 @@ class Notion {
 
   async loadCollectionItem(
     collectionPageId: UUID,
-    finder: (r: LiteCollectionItem) => boolean
+    finder: (r: LiteCollectionItem) => boolean,
+    limit: number = 70
   ): Promise<FullCollectionItem | null> {
-    const collection = await this.loadCollection(collectionPageId);
+    const collection = await this.loadCollection(collectionPageId, limit);
     const item = collection.find(finder);
 
     if (!item) return null;
