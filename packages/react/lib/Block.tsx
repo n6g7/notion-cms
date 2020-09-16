@@ -20,7 +20,7 @@ const applyModifier = (
     case "a":
       return <a href={mod[1]}>{children}</a>;
     default:
-      log('Ignoring unknown text modifier: "%s"', mod[0]);
+      log('Ignoring unknown text modifier "%s": %O', mod[0], mod);
       return children;
   }
 };
@@ -58,6 +58,7 @@ const Block: React.FC<Props> = ({ block }) => {
     case "numbered_list":
       return <li key={block.id}>{Text(block.properties?.title)}</li>;
     default:
+      log('Ignoring unknown block type "%s": %O', block.type, block);
       return null;
   }
 };
