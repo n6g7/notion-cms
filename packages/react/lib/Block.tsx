@@ -2,6 +2,7 @@ import React from "react";
 import debug from "debug";
 import { BlockValues, TextSection, TextModifier } from "@notion-cms/types";
 import NotionLink from "./NotionLink";
+import Callout from "./Callout";
 
 const log = debug("notion-cms:react");
 
@@ -65,7 +66,16 @@ const Block: React.FC<Props> = ({ block }) => {
     case "numbered_list":
       return <li key={block.id}>{Text(block.properties?.title)}</li>;
     case "divider":
-      return <hr/>
+      return <hr />;
+    case "callout":
+      return (
+        <Callout
+          colour={block.format.block_color}
+          icon={block.format.page_icon}
+        >
+          {Text(block.properties?.title)}
+        </Callout>
+      );
     default:
       log('Ignoring unknown block type "%s": %O', block.type, block);
       return null;

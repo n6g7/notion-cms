@@ -10,7 +10,8 @@ export type BlockType =
   | "image"
   | "bulleted_list"
   | "numbered_list"
-  | "divider";
+  | "divider"
+  | "callout";
 export type DataType =
   | "person"
   | "checkbox"
@@ -22,6 +23,7 @@ export type DataType =
   | "multi_select"
   | "relation";
 type ParentTable = "collection" | "block" | "space";
+export type Color = "gray_background";
 
 export interface NotionWrapper<T> {
   role: Role;
@@ -109,6 +111,13 @@ interface DividerBlockValues extends BaseBlockValues {
   type: "divider";
 }
 
+interface CalloutBlockValues extends TextBlockValues<"callout"> {
+  format: {
+    block_color: Color;
+    page_icon: string;
+  };
+}
+
 export type BlockValues =
   | PageBlockValues
   | TextBlockValues
@@ -119,7 +128,8 @@ export type BlockValues =
   | CollectionViewBlockValues
   | BulletedListBlockValues
   | NumberedListBlockValues
-  | DividerBlockValues;
+  | DividerBlockValues
+  | CalloutBlockValues;
 
 export type Block = NotionWrapper<BlockValues>;
 
