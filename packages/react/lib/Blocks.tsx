@@ -56,7 +56,7 @@ const Blocks: React.FC<Props> = ({ blocks, rootOnly = true }) => {
 
   return (
     <BlocksContext.Provider value={{ blocks }}>
-      <React.Fragment>{blockElements}</React.Fragment>;
+      <React.Fragment>{blockElements}</React.Fragment>
     </BlocksContext.Provider>
   );
 };

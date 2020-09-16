@@ -87,11 +87,16 @@ interface TextBlockValues<T extends BaseBlockValues["type"] = "text">
   };
 }
 
+interface ListBlockValues<T extends "bulleted_list" | "numbered_list">
+  extends TextBlockValues<T> {
+  content?: UUID[];
+}
+
 type HeaderBlockValues = TextBlockValues<"header">;
 type SubHeaderBlockValues = TextBlockValues<"sub_header">;
 type SubSubHeaderBlockValues = TextBlockValues<"sub_sub_header">;
-type BulletedListBlockValues = TextBlockValues<"bulleted_list">;
-type NumberedListBlockValues = TextBlockValues<"numbered_list">;
+type BulletedListBlockValues = ListBlockValues<"bulleted_list">;
+type NumberedListBlockValues = ListBlockValues<"numbered_list">;
 type QuoteBlockValues = TextBlockValues<"quote">;
 
 interface ImageBlockValues extends BaseBlockValues {

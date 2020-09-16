@@ -72,6 +72,8 @@ const Text = (sections: TextSection[]) => {
 };
 
 const Block: React.FC<Props> = ({ block }) => {
+  const { blocks } = useContext(BlocksContext);
+
   switch (block.type) {
     case "header":
       return <h1>{Text(block.properties?.title)}</h1>;
@@ -85,7 +87,21 @@ const Block: React.FC<Props> = ({ block }) => {
       return <img src={block.properties.source[0][0]} />;
     case "bulleted_list":
     case "numbered_list":
-      return <li key={block.id}>{Text(block.properties?.title)}</li>;
+      const content = block.content
+        ? block.content.map((id) => blocks.find((b) => b.id === id))
+        : [];
+      return (
+        <li key={block.id}>
+          {Text(block.properties?.title)}
+          {content.length > 0 && (
+            <ul>
+              {content.map((b) => (
+                <Block block={b as BlockValues} />
+              ))}
+            </ul>
+          )}
+        </li>
+      );
     case "divider":
       return <hr />;
     case "callout":
