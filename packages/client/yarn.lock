@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-"@notion-cms/types@^0.0.14":
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.0.14.tgz#4c99c1a28ca816f82fdf6fe1a95ad5de995c90c5"
-  integrity sha512-mV8DeTzohUoiiY4IIgz3CpifGIKfwTd8eeXSlybShlnbTqpOqZrV0W+y3hvs2iVMCI6RTZKU4poUWJ1H6hODcQ==
-
 "@types/debug@^4.1.5":
   version "4.1.5"
   resolved "https://registry.yarnpkg.com/@types/debug/-/debug-4.1.5.tgz#b14efa8852b7768d898906613c23f688713e02cd"
