@@ -1,6 +1,6 @@
 import debug from "debug";
 import _ from "lodash";
-import { UUID, BlockValues, PageBlockValues } from "@notion-cms/types";
+import { UUID, BlockValues, PageBlockValues, Person } from "@notion-cms/types";
 import { loadPageChunk, queryCollection, getImageStream } from "./rpc";
 import { parseProperty } from "./parse";
 
@@ -13,11 +13,11 @@ export interface LiteCollectionItem<T = any> {
     icon: string | null;
   };
   props: T;
-  blocks?: BlockValues[];
+  blocks?: (BlockValues | Person)[];
 }
 
 export interface FullCollectionItem<T = any> extends LiteCollectionItem<T> {
-  blocks: BlockValues[];
+  blocks: (BlockValues | Person)[];
 }
 
 class Notion {
@@ -87,9 +87,17 @@ class Notion {
 
     if (!item) return null;
     const chunk = await loadPageChunk({ pageId: item.id }, this.token);
-    const blocks = Object.keys(chunk.recordMap.block)
-      .map((id) => chunk.recordMap.block[id].value)
-      .filter(({ parent_id }) => parent_id === item.id);
+    const blocks = [
+      ...Object.keys(chunk.recordMap.block).map(
+        (id) => chunk.recordMap.block[id].value
+      ),
+      ...Object.keys(chunk.recordMap.notion_user || {}).map(
+        (id) => chunk.recordMap.notion_user[id].value
+      ),
+    ].map((b) => ({
+      ...b,
+      isRoot: "parent_id" in b && b.parent_id === item.id,
+    }));
     return { ...item, blocks };
   }
 

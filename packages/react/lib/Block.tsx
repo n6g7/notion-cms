@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useContext, useMemo } from "react";
 import debug from "debug";
-import { BlockValues, TextSection, TextModifier } from "@notion-cms/types";
+import {
+  BlockValues,
+  TextSection,
+  TextModifier,
+  PageBlockValues,
+  Person,
+} from "@notion-cms/types";
 import NotionLink from "./NotionLink";
 import Callout from "./Callout";
+import BlocksContext from "./BlocksContext";
 
 const log = debug("notion-cms:react");
 
@@ -10,7 +17,7 @@ interface Props {
   block: BlockValues;
 }
 
-const applyModifier = (
+const makeModifier = (blocksContext: (BlockValues | Person)[]) => (
   children: JSX.Element,
   mod: TextModifier
 ): JSX.Element => {
@@ -22,10 +29,21 @@ const applyModifier = (
     case "a":
       return <a href={mod[1]}>{children}</a>;
     case "p":
+      const page = blocksContext.find(
+        (b) => b.id === mod[1]
+      ) as PageBlockValues;
       return (
         <NotionLink pageId={mod[1]}>
-          Page <code>{mod[1]}</code>
+          {page.format.page_icon} {page.properties.title[0][0]}
         </NotionLink>
+      );
+    case "u":
+      const user = blocksContext.find((b) => b.id === mod[1]) as Person;
+      return (
+        <span style={{ color: "rgba(55, 53, 47, 0.6)" }}>
+          <span style={{ opacity: 0.6 }}>@</span>
+          {user.given_name} {user.family_name}
+        </span>
       );
     default:
       log('Ignoring unknown text modifier "%s": %O', mod[0], mod);
@@ -34,6 +52,9 @@ const applyModifier = (
 };
 const Text = (sections: TextSection[]) => {
   if (!sections) return "";
+
+  const { blocks } = useContext(BlocksContext);
+  const applyModifier = useMemo(() => makeModifier(blocks), [blocks]);
 
   return sections.map(([text, modifiers = []]) => {
     const NewlinedText = (
@@ -76,6 +97,8 @@ const Block: React.FC<Props> = ({ block }) => {
           {Text(block.properties?.title)}
         </Callout>
       );
+    case "quote":
+      return <blockquote>{Text(block.properties?.title)}</blockquote>;
     default:
       log('Ignoring unknown block type "%s": %O', block.type, block);
       return null;

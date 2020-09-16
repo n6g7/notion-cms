@@ -9,6 +9,7 @@ import {
   Aggregate,
   CollectionView,
   NotionWrapper,
+  UserBlock,
 } from "@notion-cms/types";
 
 const log = debug("notion-cms:rpc");
@@ -24,6 +25,9 @@ interface RecordMap {
   };
   collection_view: {
     [k: string]: CollectionView;
+  };
+  notion_user: {
+    [k: string]: UserBlock;
   };
 }
 

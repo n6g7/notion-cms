@@ -11,7 +11,8 @@ export type BlockType =
   | "bulleted_list"
   | "numbered_list"
   | "divider"
-  | "callout";
+  | "callout"
+  | "quote";
 export type DataType =
   | "person"
   | "checkbox"
@@ -54,6 +55,7 @@ interface BaseBlockValues {
   alive: boolean;
   created_by_id: UUID;
   last_edited_by_id: UUID;
+  isRoot: boolean;
 }
 
 export interface PageBlockValues extends BaseBlockValues {
@@ -69,7 +71,12 @@ export interface PageBlockValues extends BaseBlockValues {
   };
 }
 
-export type TextModifier = ["b"] | ["i"] | ["a", string] | ["p", UUID];
+export type TextModifier =
+  | ["b"]
+  | ["i"]
+  | ["a", string]
+  | ["p", UUID]
+  | ["u", UUID];
 export type TextSection = [string, TextModifier[]];
 
 interface TextBlockValues<T extends BaseBlockValues["type"] = "text">
@@ -85,6 +92,7 @@ type SubHeaderBlockValues = TextBlockValues<"sub_header">;
 type SubSubHeaderBlockValues = TextBlockValues<"sub_sub_header">;
 type BulletedListBlockValues = TextBlockValues<"bulleted_list">;
 type NumberedListBlockValues = TextBlockValues<"numbered_list">;
+type QuoteBlockValues = TextBlockValues<"quote">;
 
 interface ImageBlockValues extends BaseBlockValues {
   type: "image";
@@ -129,9 +137,11 @@ export type BlockValues =
   | BulletedListBlockValues
   | NumberedListBlockValues
   | DividerBlockValues
-  | CalloutBlockValues;
+  | CalloutBlockValues
+  | QuoteBlockValues;
 
 export type Block = NotionWrapper<BlockValues>;
+export type UserBlock = NotionWrapper<Person>;
 
 export interface CollectionSchema {
   [k: string]: { name: string; type: DataType };
