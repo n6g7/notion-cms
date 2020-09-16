@@ -10,6 +10,7 @@
     "build": "lerna run build",
     "setup": "lerna bootstrap",
     "clean": "rm -rf node_modules packages/{types,client,react}/{node_modules,build}",
-    "test": "lerna run test"
+    "test": "lerna run test",
+    "release": "yarn test && yarn build && lerna publish"
   }
 }
