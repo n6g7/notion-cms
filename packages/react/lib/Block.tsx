@@ -1,6 +1,7 @@
 import React from "react";
 import debug from "debug";
 import { BlockValues, TextSection, TextModifier } from "@notion-cms/types";
+import NotionLink from "./NotionLink";
 
 const log = debug("notion-cms:react");
 
@@ -19,6 +20,12 @@ const applyModifier = (
       return <em>{children}</em>;
     case "a":
       return <a href={mod[1]}>{children}</a>;
+    case "p":
+      return (
+        <NotionLink pageId={mod[1]}>
+          Page <code>{mod[1]}</code>
+        </NotionLink>
+      );
     default:
       log('Ignoring unknown text modifier "%s": %O', mod[0], mod);
       return children;
