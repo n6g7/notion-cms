@@ -9,7 +9,8 @@ export type BlockType =
   | "sub_sub_header"
   | "image"
   | "bulleted_list"
-  | "numbered_list";
+  | "numbered_list"
+  | "divider";
 export type DataType =
   | "person"
   | "checkbox"
@@ -104,6 +105,10 @@ interface CollectionViewBlockValues extends BaseBlockValues {
   collection_id: UUID;
 }
 
+interface DividerBlockValues extends BaseBlockValues {
+  type: "divider";
+}
+
 export type BlockValues =
   | PageBlockValues
   | TextBlockValues
@@ -113,7 +118,8 @@ export type BlockValues =
   | ImageBlockValues
   | CollectionViewBlockValues
   | BulletedListBlockValues
-  | NumberedListBlockValues;
+  | NumberedListBlockValues
+  | DividerBlockValues;
 
 export type Block = NotionWrapper<BlockValues>;
 

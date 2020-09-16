@@ -64,6 +64,8 @@ const Block: React.FC<Props> = ({ block }) => {
     case "bulleted_list":
     case "numbered_list":
       return <li key={block.id}>{Text(block.properties?.title)}</li>;
+    case "divider":
+      return <hr/>
     default:
       log('Ignoring unknown block type "%s": %O', block.type, block);
       return null;
