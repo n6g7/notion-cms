@@ -89,16 +89,8 @@ class Notion {
     const chunk = await loadPageChunk({ pageId: item.id }, this.token);
     const blocks = Object.keys(chunk.recordMap.block)
       .map((id) => chunk.recordMap.block[id].value)
-      .filter(({ type }) =>
-        [
-          "header",
-          "text",
-          "sub_header",
-          "sub_sub_header",
-          "image",
-          "bulleted_list",
-          "numbered_list",
-        ].includes(type)
+      .filter(({ parent_id }) =>
+        parent_id === item.id
       );
     return { ...item, blocks };
   }
