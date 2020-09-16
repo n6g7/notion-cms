@@ -23,22 +23,26 @@ const Blocks: React.FC<Props> = ({ blocks }) => {
       // Finshing previous list
       if (listType && block.type !== listType) {
         const ListComponent = listMapping[listType];
-        elements.push(<ListComponent>{listItems}</ListComponent>);
+        elements.push(
+          <ListComponent key={`pre-${block.id}-list`}>
+            {listItems}
+          </ListComponent>
+        );
         listType = null;
         listItems = [];
       }
 
       if (!listTypes.includes(block.type)) {
-        elements.push(<Block block={block} />);
+        elements.push(<Block block={block} key={block.id} />);
         continue;
       }
 
       listType = block.type as ListType;
-      listItems.push(<Block block={block} />);
+      listItems.push(<Block block={block} key={block.id} />);
     }
     if (listType) {
       const ListComponent = listMapping[listType];
-      elements.push(<ListComponent>{listItems}</ListComponent>);
+      elements.push(<ListComponent key="last-list">{listItems}</ListComponent>);
     }
     return elements;
   }, [blocks]);
