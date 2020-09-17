@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
-import { BlockValues, BlockType } from "@notion-cms/types";
+import { BlockValues, BlockType, Person } from "@notion-cms/types";
 import Block from "./Block";
 import BlocksContext from "./BlocksContext";
 
 interface Props {
-  blocks: BlockValues[];
+  blocks: (BlockValues | Person)[];
   rootOnly: boolean;
 }
 
@@ -17,7 +17,10 @@ const listMapping: Record<ListType, "ol" | "ul"> = {
 
 const Blocks: React.FC<Props> = ({ blocks, rootOnly = true }) => {
   const displayableBlocks = useMemo(
-    () => (rootOnly ? blocks.filter((b) => b.isRoot) : blocks),
+    () =>
+      blocks.filter(
+        (b) => "type" in b && (!rootOnly || b.isRoot)
+      ) as BlockValues[],
     [blocks, rootOnly]
   );
 
