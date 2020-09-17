@@ -5,7 +5,7 @@ import BlocksContext from "./BlocksContext";
 
 interface Props {
   blocks: (BlockValues | Person)[];
-  rootOnly: boolean;
+  rootOnly?: boolean;
 }
 
 type ListType = "bulleted_list" | "numbered_list";
