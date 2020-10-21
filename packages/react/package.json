@@ -20,7 +20,7 @@
   "dependencies": {
     "@notion-cms/types": "^0.0.19",
     "debug": "^4.1.1",
-    "react": "^16.13.1"
+    "react": "^17.0.0"
   },
   "devDependencies": {
     "@types/debug": "^4.1.5",
