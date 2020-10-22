@@ -7,6 +7,8 @@ import {
   PageBlockValues,
   Person,
 } from "@notion-cms/types";
+import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
+import { duotoneLight } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import NotionLink from "./NotionLink";
 import Callout from "./Callout";
 import BlocksContext from "./BlocksContext";
@@ -28,6 +30,8 @@ const makeModifier = (blocksContext: (BlockValues | Person)[]) => (
       return <em>{children}</em>;
     case "a":
       return <a href={mod[1]}>{children}</a>;
+    case "c":
+      return <code>{children}</code>;
     case "p":
       const page = blocksContext.find(
         (b) => b.id === mod[1]
@@ -69,6 +73,24 @@ const Text = (sections: TextSection[]) => {
     );
     return modifiers.reduce(applyModifier, NewlinedText);
   });
+};
+
+const languageMapping = {
+  Bash: "bash",
+  CSS: "css",
+  Docker: "docker",
+  GraphQL: "graphql",
+  HTML: "html",
+  JavaScript: "javascript",
+  JSON: "json",
+  Makefile: "makefile",
+  Markdown: "markdown",
+  PHP: "php",
+  Python: "python",
+  Shell: "bash",
+  SQL: "sql",
+  TypeScript: "typescript",
+  YAML: "yaml",
 };
 
 const Block: React.FC<Props> = ({ block }) => {
@@ -115,6 +137,13 @@ const Block: React.FC<Props> = ({ block }) => {
       );
     case "quote":
       return <blockquote>{Text(block.properties?.title)}</blockquote>;
+    case "code":
+      const language = languageMapping[block.properties?.language[0]];
+      return (
+        <SyntaxHighlighter language={language} style={duotoneLight}>
+          {block.properties?.title[0][0]}
+        </SyntaxHighlighter>
+      );
     default:
       log('Ignoring unknown block type "%s": %O', block.type, block);
       return null;

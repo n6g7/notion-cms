@@ -1,6 +1,6 @@
 {
   "name": "@notion-cms/react",
-  "version": "0.0.19",
+  "version": "0.0.20-alpha.5",
   "description": "React components to render Notion.so blocks.",
   "author": "Nathan Gaberel <nathan@gnab.fr>",
   "homepage": "",
@@ -18,13 +18,15 @@
     "test": "tsc"
   },
   "dependencies": {
-    "@notion-cms/types": "^0.0.19",
+    "@notion-cms/types": "^0.0.20-alpha.0",
     "debug": "^4.1.1",
-    "react": "^16.13.1"
+    "react": "^16.13.1",
+    "react-syntax-highlighter": "^15.2.1"
   },
   "devDependencies": {
     "@types/debug": "^4.1.5",
-    "@types/react": "^16.9.49"
+    "@types/react": "^16.9.49",
+    "@types/react-syntax-highlighter": "^13.5.0"
   },
   "keywords": [
     "notion.so",
