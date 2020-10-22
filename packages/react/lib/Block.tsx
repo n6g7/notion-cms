@@ -8,7 +8,7 @@ import {
   Person,
 } from "@notion-cms/types";
 import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
-import { ghcolors } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { ghcolors } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import NotionLink from "./NotionLink";
 import Callout from "./Callout";
 import BlocksContext from "./BlocksContext";
