@@ -75,6 +75,24 @@ const Text = (sections: TextSection[]) => {
   });
 };
 
+const languageMapping = {
+  Bash: "bash",
+  CSS: "css",
+  Docker: "docker",
+  GraphQL: "graphql",
+  HTML: "html",
+  JavaScript: "javascript",
+  JSON: "json",
+  Makefile: "makefile",
+  Markdown: "markdown",
+  PHP: "php",
+  Python: "python",
+  Shell: "bash",
+  SQL: "sql",
+  TypeScript: "typescript",
+  YAML: "yaml",
+};
+
 const Block: React.FC<Props> = ({ block }) => {
   const { blocks } = useContext(BlocksContext);
 
@@ -122,7 +140,7 @@ const Block: React.FC<Props> = ({ block }) => {
     case "code":
       return (
         <SyntaxHighlight
-          language={block.properties?.language[0]}
+          language={languageMapping[block.properties?.language[0]]}
           style={ghcolors}
         >
           {block.properties?.title[0][0]}
