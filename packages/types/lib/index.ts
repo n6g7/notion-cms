@@ -12,7 +12,8 @@ export type BlockType =
   | "numbered_list"
   | "divider"
   | "callout"
-  | "quote";
+  | "quote"
+  | "code";
 export type DataType =
   | "person"
   | "checkbox"
@@ -74,6 +75,7 @@ export interface PageBlockValues extends BaseBlockValues {
 export type TextModifier =
   | ["b"]
   | ["i"]
+  | ["c"]
   | ["a", string]
   | ["p", UUID]
   | ["u", UUID];
@@ -98,6 +100,14 @@ type SubSubHeaderBlockValues = TextBlockValues<"sub_sub_header">;
 type BulletedListBlockValues = ListBlockValues<"bulleted_list">;
 type NumberedListBlockValues = ListBlockValues<"numbered_list">;
 type QuoteBlockValues = TextBlockValues<"quote">;
+
+type CodeLanguage = "JavaScript";
+interface CodeBlockValues extends TextBlockValues<"code"> {
+  properties?: {
+    title: TextSection[];
+    language: [CodeLanguage];
+  };
+}
 
 interface ImageBlockValues extends BaseBlockValues {
   type: "image";
@@ -143,7 +153,8 @@ export type BlockValues =
   | NumberedListBlockValues
   | DividerBlockValues
   | CalloutBlockValues
-  | QuoteBlockValues;
+  | QuoteBlockValues
+  | CodeBlockValues;
 
 export type Block = NotionWrapper<BlockValues>;
 export type UserBlock = NotionWrapper<Person>;

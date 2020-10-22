@@ -7,6 +7,8 @@ import {
   PageBlockValues,
   Person,
 } from "@notion-cms/types";
+import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
+import { ghcolors } from "react-syntax-highlighter/dist/esm/styles/prism";
 import NotionLink from "./NotionLink";
 import Callout from "./Callout";
 import BlocksContext from "./BlocksContext";
@@ -28,6 +30,8 @@ const makeModifier = (blocksContext: (BlockValues | Person)[]) => (
       return <em>{children}</em>;
     case "a":
       return <a href={mod[1]}>{children}</a>;
+    case "c":
+      return <code>{children}</code>;
     case "p":
       const page = blocksContext.find(
         (b) => b.id === mod[1]
@@ -115,6 +119,15 @@ const Block: React.FC<Props> = ({ block }) => {
       );
     case "quote":
       return <blockquote>{Text(block.properties?.title)}</blockquote>;
+    case "code":
+      return (
+        <SyntaxHighlighter
+          language={block.properties?.language[0]}
+          style={ghcolors}
+        >
+          {block.properties?.title[0][0]}
+        </SyntaxHighlighter>
+      );
     default:
       log('Ignoring unknown block type "%s": %O', block.type, block);
       return null;
