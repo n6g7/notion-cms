@@ -1,6 +1,6 @@
 {
   "name": "@notion-cms/react",
-  "version": "0.0.20-alpha.4",
+  "version": "0.0.20-alpha.5",
   "description": "React components to render Notion.so blocks.",
   "author": "Nathan Gaberel <nathan@gnab.fr>",
   "homepage": "",
