@@ -7,7 +7,7 @@ import {
   PageBlockValues,
   Person,
 } from "@notion-cms/types";
-import { PrismAsyncLight as SyntaxHighlight } from "react-syntax-highlighter";
+import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import { ghcolors } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import NotionLink from "./NotionLink";
 import Callout from "./Callout";
@@ -138,13 +138,12 @@ const Block: React.FC<Props> = ({ block }) => {
     case "quote":
       return <blockquote>{Text(block.properties?.title)}</blockquote>;
     case "code":
+      const language = languageMapping[block.properties?.language[0]];
+      console.log(language);
       return (
-        <SyntaxHighlight
-          language={languageMapping[block.properties?.language[0]]}
-          style={ghcolors}
-        >
+        <SyntaxHighlighter language={language} style={ghcolors}>
           {block.properties?.title[0][0]}
-        </SyntaxHighlight>
+        </SyntaxHighlighter>
       );
     default:
       log('Ignoring unknown block type "%s": %O', block.type, block);
