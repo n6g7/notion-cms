@@ -8,7 +8,7 @@ import {
   Person,
 } from "@notion-cms/types";
 import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
-import { ghcolors } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { duotoneLight } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import NotionLink from "./NotionLink";
 import Callout from "./Callout";
 import BlocksContext from "./BlocksContext";
@@ -139,9 +139,8 @@ const Block: React.FC<Props> = ({ block }) => {
       return <blockquote>{Text(block.properties?.title)}</blockquote>;
     case "code":
       const language = languageMapping[block.properties?.language[0]];
-      console.log(language);
       return (
-        <SyntaxHighlighter language={language} style={ghcolors}>
+        <SyntaxHighlighter language={language} style={duotoneLight}>
           {block.properties?.title[0][0]}
         </SyntaxHighlighter>
       );
