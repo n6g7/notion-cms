@@ -38,7 +38,7 @@ const makeModifier = (blocksContext: (BlockValues | Person)[]) => (
       ) as PageBlockValues;
       return (
         <NotionLink pageId={mod[1]}>
-          {page.format.page_icon} {page.properties.title[0][0]}
+          {page.format?.page_icon} {page.properties.title[0][0]}
         </NotionLink>
       );
     case "u":
