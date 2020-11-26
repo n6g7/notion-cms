@@ -26,6 +26,8 @@ function Bookmark({ block }: Props) {
       }}
     >
       <a
+        href={link[0][0]}
+        target="blank"
         style={{
           borderRadius: "3px",
           padding: "12px 14px 14px",
