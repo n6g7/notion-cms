@@ -1,6 +1,12 @@
 import debug from "debug";
 import _ from "lodash";
-import { UUID, BlockValues, PageBlockValues, Person } from "@notion-cms/types";
+import {
+  UUID,
+  BlockValues,
+  PageBlockValues,
+  Person,
+  CollectionContent,
+} from "@notion-cms/types";
 import { loadPageChunk, queryCollection, getImageStream } from "./rpc";
 import { parseProperty } from "./parse";
 
@@ -13,11 +19,11 @@ export interface LiteCollectionItem<T = any> {
     icon: string | null;
   };
   props: T;
-  blocks?: (BlockValues | Person)[];
+  blocks?: (BlockValues | Person | CollectionContent)[];
 }
 
 export interface FullCollectionItem<T = any> extends LiteCollectionItem<T> {
-  blocks: (BlockValues | Person)[];
+  blocks: (BlockValues | Person | CollectionContent)[];
 }
 
 class Notion {
@@ -93,6 +99,9 @@ class Notion {
       ),
       ...Object.keys(chunk.recordMap.notion_user || {}).map(
         (id) => chunk.recordMap.notion_user[id].value
+      ),
+      ...Object.keys(chunk.recordMap.collection || {}).map(
+        (id) => chunk.recordMap.collection[id].value
       ),
     ].map((b) => ({
       ...b,

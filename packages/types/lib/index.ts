@@ -167,7 +167,7 @@ export interface CollectionFormat {
   collection_page_properties: { visible: boolean; property: string }[];
 }
 
-export type Collection = NotionWrapper<{
+export interface CollectionContent {
   id: UUID;
   version: number;
   name: string[][];
@@ -176,7 +176,8 @@ export type Collection = NotionWrapper<{
   parent_id: UUID;
   parent_table: ParentTable;
   alive: boolean;
-}>;
+}
+export type Collection = NotionWrapper<CollectionContent>;
 
 export interface Aggregate {
   aggregation_type: string;
