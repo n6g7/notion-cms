@@ -1,11 +1,17 @@
 import React, { useMemo } from "react";
-import { BlockValues, BlockType, Person } from "@notion-cms/types";
+import {
+  BlockValues,
+  BlockType,
+  Person,
+  ImageBlockValues,
+} from "@notion-cms/types";
 import Block from "./Block";
 import BlocksContext from "./BlocksContext";
 
 interface Props {
   blocks: (BlockValues | Person)[];
   rootOnly?: boolean;
+  getImageUrl: (imageBlock: ImageBlockValues) => string;
 }
 
 type ListType = "bulleted_list" | "numbered_list";
@@ -15,7 +21,14 @@ const listMapping: Record<ListType, "ol" | "ul"> = {
   numbered_list: "ol",
 };
 
-const Blocks: React.FC<Props> = ({ blocks, rootOnly = true }) => {
+const defaultImageUrl = (imageBlock: ImageBlockValues) =>
+  imageBlock.properties.source[0][0];
+
+const Blocks: React.FC<Props> = ({
+  blocks,
+  rootOnly = true,
+  getImageUrl = defaultImageUrl,
+}) => {
   const displayableBlocks = useMemo(
     () =>
       blocks.filter(
@@ -58,7 +71,7 @@ const Blocks: React.FC<Props> = ({ blocks, rootOnly = true }) => {
   }, [displayableBlocks]);
 
   return (
-    <BlocksContext.Provider value={{ blocks }}>
+    <BlocksContext.Provider value={{ blocks, getImageUrl }}>
       <React.Fragment>{blockElements}</React.Fragment>
     </BlocksContext.Provider>
   );

@@ -107,7 +107,7 @@ const languageMapping = {
 };
 
 const Block: React.FC<Props> = ({ block }) => {
-  const { blocks } = useContext(BlocksContext);
+  const { blocks, getImageUrl } = useContext(BlocksContext);
 
   switch (block.type) {
     case "header":
@@ -119,7 +119,7 @@ const Block: React.FC<Props> = ({ block }) => {
     case "text":
       return <p>{Text(block.properties?.title)}</p>;
     case "image":
-      return <img src={block.properties.source[0][0]} />;
+      return <img src={getImageUrl(block)} alt={block.id} />;
     case "bulleted_list":
     case "numbered_list":
       const content = block.content
