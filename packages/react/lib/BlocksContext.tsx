@@ -1,8 +1,13 @@
 import React from "react";
-import { BlockValues, ImageBlockValues, Person } from "@notion-cms/types";
+import {
+  BlockValues,
+  CollectionContent,
+  ImageBlockValues,
+  Person,
+} from "@notion-cms/types";
 
 interface BlocksContextProps {
-  blocks: (BlockValues | Person)[];
+  blocks: (BlockValues | Person | CollectionContent)[];
   getImageUrl: (imageBlock: ImageBlockValues) => string;
 }
 

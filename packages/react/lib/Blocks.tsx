@@ -4,12 +4,13 @@ import {
   BlockType,
   Person,
   ImageBlockValues,
+  CollectionContent,
 } from "@notion-cms/types";
 import Block from "./Block";
 import BlocksContext from "./BlocksContext";
 
 interface Props {
-  blocks: (BlockValues | Person)[];
+  blocks: (BlockValues | Person | CollectionContent)[];
   rootOnly?: boolean;
   getImageUrl: (imageBlock: ImageBlockValues) => string;
 }
