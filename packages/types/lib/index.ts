@@ -3,6 +3,7 @@ type Role = "editor" | "reader" | "none";
 export type BlockType =
   | "page"
   | "collection_view"
+  | "collection_view_page"
   | "header"
   | "text"
   | "sub_header"
@@ -130,6 +131,12 @@ interface CollectionViewBlockValues extends BaseBlockValues {
   collection_id: UUID;
 }
 
+interface CollectionViewPageBlockValues extends BaseBlockValues {
+  type: "collection_view_page";
+  view_ids: UUID[];
+  collection_id: UUID;
+}
+
 interface DividerBlockValues extends BaseBlockValues {
   type: "divider";
 }
@@ -149,6 +156,7 @@ export type BlockValues =
   | SubSubHeaderBlockValues
   | ImageBlockValues
   | CollectionViewBlockValues
+  | CollectionViewPageBlockValues
   | BulletedListBlockValues
   | NumberedListBlockValues
   | DividerBlockValues
@@ -171,6 +179,7 @@ export interface CollectionContent {
   id: UUID;
   version: number;
   name: string[][];
+  icon?: string;
   schema: CollectionSchema;
   format: CollectionFormat;
   parent_id: UUID;

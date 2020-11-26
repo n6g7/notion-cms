@@ -6,6 +6,7 @@ import {
   TextModifier,
   PageBlockValues,
   Person,
+  CollectionContent,
 } from "@notion-cms/types";
 import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
 import { duotoneLight } from "react-syntax-highlighter/dist/cjs/styles/prism";
@@ -19,10 +20,9 @@ interface Props {
   block: BlockValues;
 }
 
-const makeModifier = (blocksContext: (BlockValues | Person)[]) => (
-  children: JSX.Element,
-  mod: TextModifier
-): JSX.Element => {
+const makeModifier = (
+  blocksContext: (BlockValues | Person | CollectionContent)[]
+) => (children: JSX.Element, mod: TextModifier): JSX.Element => {
   switch (mod[0]) {
     case "b":
       return <strong>{children}</strong>;
@@ -33,14 +33,27 @@ const makeModifier = (blocksContext: (BlockValues | Person)[]) => (
     case "c":
       return <code>{children}</code>;
     case "p":
-      const page = blocksContext.find(
-        (b) => b.id === mod[1]
-      ) as PageBlockValues;
-      return (
-        <NotionLink pageId={mod[1]}>
-          {page.format?.page_icon} {page.properties.title[0][0]}
-        </NotionLink>
-      );
+      const block = blocksContext.find((b) => b.id === mod[1]);
+      if (!("type" in block)) return children;
+
+      switch (block.type) {
+        case "collection_view_page":
+          const collection = blocksContext.find(
+            (b) => b.id === block.collection_id
+          ) as CollectionContent;
+          return (
+            <NotionLink pageId={mod[1]}>
+              {collection?.icon} {collection.name[0][0]}
+            </NotionLink>
+          );
+        default:
+          const page = block as PageBlockValues;
+          return (
+            <NotionLink pageId={mod[1]}>
+              {page.format?.page_icon} {page.properties.title[0][0]}
+            </NotionLink>
+          );
+      }
     case "u":
       const user = blocksContext.find((b) => b.id === mod[1]) as Person;
       return (
