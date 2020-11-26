@@ -119,7 +119,13 @@ const Block: React.FC<Props> = ({ block }) => {
     case "text":
       return <p>{Text(block.properties?.title)}</p>;
     case "image":
-      return <img src={getImageUrl(block)} alt={block.id} />;
+      return (
+        <img
+          src={getImageUrl(block)}
+          alt={block.id}
+          width={block.format.block_width}
+        />
+      );
     case "bulleted_list":
     case "numbered_list":
       const content = block.content
