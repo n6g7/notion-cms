@@ -14,7 +14,9 @@ export type BlockType =
   | "divider"
   | "callout"
   | "quote"
-  | "code";
+  | "code"
+  | "factory"
+  | "bookmark";
 export type DataType =
   | "person"
   | "checkbox"
@@ -148,6 +150,22 @@ interface CalloutBlockValues extends TextBlockValues<"callout"> {
   };
 }
 
+interface FactoryBlockValues extends BaseBlockValues {
+  type: "factory";
+  content: UUID[];
+  properties: {
+    title: string[][];
+  };
+}
+
+export interface BookmarkBlockValues extends BaseBlockValues {
+  type: "bookmark";
+  properties: {
+    link: string[][];
+    caption?: string[][];
+  };
+}
+
 export type BlockValues =
   | PageBlockValues
   | TextBlockValues
@@ -162,7 +180,9 @@ export type BlockValues =
   | DividerBlockValues
   | CalloutBlockValues
   | QuoteBlockValues
-  | CodeBlockValues;
+  | CodeBlockValues
+  | FactoryBlockValues
+  | BookmarkBlockValues;
 
 export type Block = NotionWrapper<BlockValues>;
 export type UserBlock = NotionWrapper<Person>;

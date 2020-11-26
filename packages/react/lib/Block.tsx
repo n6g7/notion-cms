@@ -13,6 +13,7 @@ import { duotoneLight } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import NotionLink from "./NotionLink";
 import Callout from "./Callout";
 import BlocksContext from "./BlocksContext";
+import Bookmark from "./Bookmark";
 
 const log = debug("notion-cms:react");
 
@@ -163,6 +164,12 @@ const Block: React.FC<Props> = ({ block }) => {
           {block.properties?.title[0][0]}
         </SyntaxHighlighter>
       );
+    case "bookmark":
+      return <Bookmark block={block} />;
+
+    // We're not rendering those block types;
+    case "factory":
+      return null;
     default:
       log('Ignoring unknown block type "%s": %O', block.type, block);
       return null;
