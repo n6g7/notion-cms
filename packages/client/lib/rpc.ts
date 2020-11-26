@@ -50,13 +50,15 @@ async function rpc(fnName: string, body = {}, token: string) {
 
 const s3Prefix = "https://s3-us-west-2.amazonaws.com/secure.notion-static.com/";
 export async function getImageStream(
+  imageId: string,
   imageUrl: string,
   token: string,
   width?: number
 ) {
   const notionUrl =
-    `https://www.notion.so/image/${encodeURIComponent(imageUrl)}?cache=v2` +
-    (width ? `&width=${width}` : "");
+    `https://www.notion.so/image/${encodeURIComponent(
+      imageUrl
+    )}?cache=v2&table=block&id=${imageId}` + (width ? `&width=${width}` : "");
   const request = imageUrl.startsWith(s3Prefix)
     ? fetch(notionUrl, {
         headers: {

@@ -110,7 +110,7 @@ interface CodeBlockValues extends TextBlockValues<"code"> {
   };
 }
 
-interface ImageBlockValues extends BaseBlockValues {
+export interface ImageBlockValues extends BaseBlockValues {
   type: "image";
   properties: {
     source: string[][];

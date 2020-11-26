@@ -97,6 +97,7 @@ One way to avoid this issue is to download those images at build time and serve 
 
 ```ts
 return notion.downloadImage(
+  page.id,
   page.meta.cover,
   path.resolve(process.cwd(), `./public/${page.id}.webp`),
   40 // image width

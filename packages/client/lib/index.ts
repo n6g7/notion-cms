@@ -110,9 +110,14 @@ class Notion {
     return { ...item, blocks };
   }
 
-  async downloadImage(imageUrl: string, path: string, width?: number) {
+  async downloadImage(
+    imageId: string,
+    imageUrl: string,
+    path: string,
+    width?: number
+  ) {
     const sharp = require("sharp");
-    const stream = await getImageStream(imageUrl, this.token);
+    const stream = await getImageStream(imageId, imageUrl, this.token);
 
     const buffer = await new Promise((resolve, reject) => {
       const bufs: any[] = [];
