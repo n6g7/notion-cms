@@ -9,10 +9,10 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@notion-cms/types@^0.0.21":
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.0.21.tgz#d85b79908306eb6fc1cb6d05d2fc5a0d76f28faf"
-  integrity sha512-pa1c0xmyv90FSfl6JJqyDYMO9jzINjc5A7y8dWzzHZWvymoW1Zp1Rw82VlN7sTYmYB5O3OgX7fD7butdAZMn1w==
+"@notion-cms/types@^0.0.30":
+  version "0.0.30"
+  resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.0.30.tgz#ec08bb62023b27744b81430617921c1b08594c0b"
+  integrity sha512-ge3xbAXUThXb2EEduE4FmrOdKZRUs65x2uCOs4/oH4bSwQQPgG2Y5Z67c8WP+1h3WZrwZcJukTkMz4Spck29Xw==
 
 "@types/debug@^4.1.5":
   version "4.1.5"
