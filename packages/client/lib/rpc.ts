@@ -171,7 +171,7 @@ export function loadPageChunk(
 
 // queryCollection
 
-interface QueryCollectionInput {
+export interface QueryCollectionInput {
   collectionId: UUID;
   collectionViewId: UUID;
   loader?: {

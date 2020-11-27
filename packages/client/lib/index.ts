@@ -7,7 +7,12 @@ import {
   Person,
   CollectionContent,
 } from "@notion-cms/types";
-import { loadPageChunk, queryCollection, getImageStream } from "./rpc";
+import {
+  loadPageChunk,
+  queryCollection,
+  getImageStream,
+  QueryCollectionInput,
+} from "./rpc";
 import { parseProperty } from "./parse";
 
 const log = debug("notion-cms");
@@ -36,7 +41,7 @@ class Notion {
   async loadCollection(
     pageId: UUID,
     limit: number = 70,
-    query: any = null
+    query?: QueryCollectionInput["query"]
   ): Promise<LiteCollectionItem[]> {
     const pageData = await loadPageChunk({ pageId }, this.token);
     const [collection] = _.values(pageData.recordMap.collection);
