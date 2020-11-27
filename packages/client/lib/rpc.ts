@@ -7,6 +7,8 @@ import {
   CollectionSchema,
   CollectionFormat,
   Aggregate,
+  Filter,
+  Sort,
   CollectionView,
   NotionWrapper,
   UserBlock,
@@ -180,10 +182,12 @@ interface QueryCollectionInput {
     userTimeZone?: string;
   };
   query?: {
-    aggregate?: Aggregate[];
-    filter?: any[];
-    filter_operator?: "and" | "or";
-    sort?: any[];
+    aggregations?: Aggregate[];
+    filter?: {
+      filters: Filter[];
+      operator: "and" | "or";
+    };
+    sort?: Sort[];
   };
 }
 interface QueryCollectionResponse {
@@ -214,17 +218,11 @@ export function queryCollection(
   } = loader;
 
   const {
-    aggregate = [
-      {
-        aggregation_type: "count",
-        id: "count",
-        property: "title",
-        type: "title",
-        view_type: "table",
-      },
-    ],
-    filter = [],
-    filter_operator = "and",
+    aggregations = [],
+    filter = {
+      filters: [],
+      operator: "and",
+    },
     sort = [],
   } = query;
 
@@ -241,9 +239,8 @@ export function queryCollection(
         userTimeZone,
       },
       query: {
-        aggregate,
+        aggregations,
         filter,
-        filter_operator,
         sort,
       },
     },

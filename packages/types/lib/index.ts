@@ -209,11 +209,22 @@ export interface CollectionContent {
 export type Collection = NotionWrapper<CollectionContent>;
 
 export interface Aggregate {
-  aggregation_type: string;
-  id: string;
+  aggregator: string;
   property: string;
-  type: string;
-  view_type: string;
+}
+export interface Filter {
+  filter: {
+    operator: "enum_is";
+    value: {
+      type: "exact";
+      value: string;
+    };
+  };
+  property: string;
+}
+export interface Sort {
+  direction: "ascending" | "descending";
+  property: string;
 }
 
 export interface CollectionViewFormat {
