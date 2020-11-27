@@ -112,16 +112,17 @@ const Block: React.FC<Props> = ({ block }) => {
 
   switch (block.type) {
     case "header":
-      return <h1>{Text(block.properties?.title)}</h1>;
+      return <h1 key={block.id}>{Text(block.properties?.title)}</h1>;
     case "sub_header":
-      return <h2>{Text(block.properties?.title)}</h2>;
+      return <h2 key={block.id}>{Text(block.properties?.title)}</h2>;
     case "sub_sub_header":
-      return <h3>{Text(block.properties?.title)}</h3>;
+      return <h3 key={block.id}>{Text(block.properties?.title)}</h3>;
     case "text":
-      return <p>{Text(block.properties?.title)}</p>;
+      return <p key={block.id}>{Text(block.properties?.title)}</p>;
     case "image":
       return (
         <img
+          key={block.id}
           src={getImageUrl(block)}
           alt={block.id}
           width={block.format.block_width}
@@ -145,10 +146,11 @@ const Block: React.FC<Props> = ({ block }) => {
         </li>
       );
     case "divider":
-      return <hr />;
+      return <hr key={block.id} />;
     case "callout":
       return (
         <Callout
+          key={block.id}
           colour={block.format.block_color}
           icon={block.format.page_icon}
         >
@@ -156,16 +158,22 @@ const Block: React.FC<Props> = ({ block }) => {
         </Callout>
       );
     case "quote":
-      return <blockquote>{Text(block.properties?.title)}</blockquote>;
+      return (
+        <blockquote key={block.id}>{Text(block.properties?.title)}</blockquote>
+      );
     case "code":
       const language = languageMapping[block.properties?.language[0]];
       return (
-        <SyntaxHighlighter language={language} style={duotoneLight}>
+        <SyntaxHighlighter
+          key={block.id}
+          language={language}
+          style={duotoneLight}
+        >
           {block.properties?.title[0][0]}
         </SyntaxHighlighter>
       );
     case "bookmark":
-      return <Bookmark block={block} />;
+      return <Bookmark key={block.id} block={block} />;
 
     // We're not rendering those block types;
     case "factory":
