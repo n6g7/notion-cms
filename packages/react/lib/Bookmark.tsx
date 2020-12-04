@@ -13,11 +13,11 @@ function Bookmark({ block }: Props) {
     format,
   } = block;
   const hostname = useMemo(() => {
-    if (title[0][0]) return title[0][0];
+    if (title && title[0] && title[0][0]) return title[0][0];
     const match = urlRegExp.exec(link[0][0]);
     if (!match) return null;
     return match.groups.hostname;
-  }, [title[0][0], link[0][0]]);
+  }, [title, link[0][0]]);
 
   return (
     <div style={{ display: "flex", flexFlow: "row nowrap" }}>
