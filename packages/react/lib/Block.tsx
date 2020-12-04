@@ -125,7 +125,7 @@ const Block: React.FC<Props> = ({ block }) => {
           key={block.id}
           src={getImageUrl(block)}
           alt={block.id}
-          width={block.format.block_width}
+          width={block.format ? block.format.block_width : null}
         />
       );
     case "bulleted_list":
