@@ -26,6 +26,7 @@ function Bookmark({ block }: Props) {
         flexFlow: "row nowrap",
         borderRadius: "3px",
         border: "1px solid rgba(55, 53, 47, 0.16)",
+        marginBottom: "5px",
       }}
     >
       <div
