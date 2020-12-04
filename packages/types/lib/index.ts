@@ -163,6 +163,11 @@ export interface BookmarkBlockValues extends BaseBlockValues {
   properties: {
     link: string[][];
     caption?: string[][];
+    title?: string[][];
+    description?: string[][];
+  };
+  format?: {
+    bookmark_cover?: string;
   };
 }
 
