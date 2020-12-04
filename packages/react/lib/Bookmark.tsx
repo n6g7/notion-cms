@@ -20,10 +20,18 @@ function Bookmark({ block }: Props) {
   }, [title, link[0][0]]);
 
   return (
-    <div style={{ display: "flex", flexFlow: "row nowrap" }}>
+    <div
+      style={{
+        display: "flex",
+        flexFlow: "row nowrap",
+        borderRadius: "3px",
+        border: "1px solid rgba(55, 53, 47, 0.16)",
+      }}
+    >
       <div
         style={{
           display: "flex",
+          color: "rgb(55, 53, 47)",
           flexFlow: "column nowrap",
           alignItems: "stretch",
         }}
@@ -32,7 +40,6 @@ function Bookmark({ block }: Props) {
           href={link[0][0]}
           target="blank"
           style={{
-            borderRadius: "3px",
             padding: "12px 14px 14px",
             // backgroundColor: colours[colour],
             display: "flex",
@@ -41,7 +48,6 @@ function Bookmark({ block }: Props) {
             transition: "background 20ms ease-in 0s",
             cursor: "pointer",
             width: "100%",
-            border: "1px solid rgba(55, 53, 47, 0.16)",
           }}
         >
           <span style={{ fontSize: "0.9em", marginBottom: "2px" }}>
