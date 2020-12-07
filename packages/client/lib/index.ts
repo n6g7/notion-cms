@@ -133,7 +133,7 @@ class Notion {
       stream.on("end", () => resolve(Buffer.concat(bufs)));
     });
 
-    return sharp(buffer).resize(width).webp().toFile(path);
+    return sharp(buffer).resize(width).png().toFile(path);
   }
 }
 
