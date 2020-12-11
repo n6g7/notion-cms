@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@notion-cms/types@^0.0.21":
-  version "0.0.21"
-  resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.0.21.tgz#d85b79908306eb6fc1cb6d05d2fc5a0d76f28faf"
-  integrity sha512-pa1c0xmyv90FSfl6JJqyDYMO9jzINjc5A7y8dWzzHZWvymoW1Zp1Rw82VlN7sTYmYB5O3OgX7fD7butdAZMn1w==
+"@notion-cms/types@^0.0.36":
+  version "0.0.36"
+  resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.0.36.tgz#865300ecc4c24997e71bce1ca6a230c196843bc6"
+  integrity sha512-9yYTYotof9+q0CVnmBWqrabRzoms+VcQAdKDTxl5ImwAU0J3CSLByFW/a1xncaoatXKD2eLXIYIOqN+KYTNHBA==
 
 "@types/debug@^4.1.5":
   version "4.1.5"
@@ -203,9 +203,9 @@ inherits@^2.0.3, inherits@^2.0.4, inherits@~2.0.3:
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
 ini@~1.3.0:
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
-  integrity sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
+  version "1.3.7"
+  resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.7.tgz#a09363e1911972ea16d7a8851005d84cf09a9a84"
+  integrity sha512-iKpRpXP+CrP2jyrxvg1kMUpXDyRUFDWurxbnVT1vQPx+Wz9uCYsMIqYuSBLV+PAaZG/d7kRLKRFc9oDMsH+mFQ==
 
 is-arrayish@^0.3.1:
   version "0.3.2"
