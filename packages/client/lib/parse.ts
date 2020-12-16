@@ -59,7 +59,7 @@ export async function parseProperty(
   page: PageBlockValues,
   token: string
 ) {
-  if (!property) return null;
+  if (type !== "created_time" && !property) return null;
 
   switch (type) {
     case "checkbox":
