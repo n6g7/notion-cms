@@ -1,8 +1,16 @@
 import debug from "debug";
-import { UserBlockValues, DataType } from "@notion-cms/types";
+import { UserBlockValues, DataType, UUID } from "@notion-cms/types";
 import { getRecordValues } from "./rpc";
 
 const log = debug("notion-cms:parser");
+
+export interface NotionUser {
+  id: UUID;
+  email: string;
+  given_name: string;
+  family_name: string;
+  profile_photo: string | null;
+}
 
 export async function parseProperty(
   type: "checkbox",
@@ -33,7 +41,7 @@ export async function parseProperty(
   type: "person",
   property: any,
   token: string
-): Promise<Partial<UserBlockValues>[]>;
+): Promise<NotionUser[]>;
 export async function parseProperty(
   type: DataType,
   property: any,

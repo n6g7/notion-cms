@@ -15,6 +15,8 @@ import {
 } from "./rpc";
 import { parseProperty } from "./parse";
 
+export { NotionUser } from "./parse";
+
 const log = debug("notion-cms");
 
 export interface LiteCollectionItem<T = any> {
