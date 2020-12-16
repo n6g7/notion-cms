@@ -26,7 +26,8 @@ export type DataType =
   | "number"
   | "select"
   | "multi_select"
-  | "relation";
+  | "relation"
+  | "created_time";
 type ParentTable = "collection" | "block" | "space";
 export type Color = "gray_background";
 

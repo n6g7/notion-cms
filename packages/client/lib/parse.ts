@@ -1,5 +1,10 @@
 import debug from "debug";
-import { UserBlockValues, DataType, UUID } from "@notion-cms/types";
+import {
+  UserBlockValues,
+  DataType,
+  UUID,
+  PageBlockValues,
+} from "@notion-cms/types";
 import { getRecordValues } from "./rpc";
 
 const log = debug("notion-cms:parser");
@@ -15,36 +20,43 @@ export interface NotionUser {
 export async function parseProperty(
   type: "checkbox",
   property: any,
+  page: PageBlockValues,
   token: string
 ): Promise<boolean>;
 export async function parseProperty(
   type: "number",
   property: any,
+  page: PageBlockValues,
   token: string
 ): Promise<number>;
 export async function parseProperty(
   type: "date",
   property: any,
+  page: PageBlockValues,
   token: string
 ): Promise<Date>;
 export async function parseProperty(
   type: "text" | "title" | "select",
   property: any,
+  page: PageBlockValues,
   token: string
 ): Promise<string>;
 export async function parseProperty(
   type: "multi_select" | "relation",
   property: any,
+  page: PageBlockValues,
   token: string
 ): Promise<string[]>;
 export async function parseProperty(
   type: "person",
   property: any,
+  page: PageBlockValues,
   token: string
 ): Promise<NotionUser[]>;
 export async function parseProperty(
   type: DataType,
   property: any,
+  page: PageBlockValues,
   token: string
 ) {
   if (!property) return null;
@@ -63,6 +75,8 @@ export async function parseProperty(
         case "datetime":
           return new Date(`${start_date}T${start_time}`).toISOString();
       }
+    case "created_time":
+      return new Date(page.created_time).toISOString();
     case "person":
       return await Promise.all(
         property

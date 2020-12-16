@@ -75,6 +75,7 @@ class Notion {
               collection.value.schema[key].type,
               // @ts-ignore
               b.properties[key],
+              b,
               this.token
             ),
           }))
