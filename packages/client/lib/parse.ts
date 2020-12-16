@@ -69,7 +69,13 @@ export async function parseProperty(
               },
               token
             );
-            return { id, email, given_name, family_name, profile_photo };
+            return {
+              id,
+              email,
+              given_name,
+              family_name,
+              profile_photo: profile_photo || null,
+            };
           })
       );
     case "text":
