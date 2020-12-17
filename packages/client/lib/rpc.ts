@@ -33,7 +33,12 @@ interface RecordMap {
   };
 }
 
-async function rpc(fnName: string, body = {}, token: string) {
+async function rpc(
+  fnName: string,
+  body = {},
+  token: string,
+  retries: number = 3
+): Promise<any> {
   const res = await fetch(`https://www.notion.so/api/v3/${fnName}`, {
     method: "POST",
     headers: {
@@ -46,6 +51,10 @@ async function rpc(fnName: string, body = {}, token: string) {
   if (res.ok) {
     return res.json();
   } else {
+    if (res.status === 502 && retries > 0) {
+      console.debug(`Notion API gateway error, retrying (retries=${retries})`);
+      return rpc(fnName, body, token, retries - 1);
+    }
     throw new Error(await getError(res));
   }
 }
