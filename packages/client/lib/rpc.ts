@@ -37,7 +37,7 @@ async function rpc(
   fnName: string,
   body = {},
   token: string,
-  retries: number = 3
+  retries: number = 5
 ): Promise<any> {
   const res = await fetch(`https://www.notion.so/api/v3/${fnName}`, {
     method: "POST",
@@ -51,7 +51,7 @@ async function rpc(
   if (res.ok) {
     return res.json();
   } else {
-    if (res.status === 502 && retries > 0) {
+    if ([502, 504].includes(res.status) && retries > 0) {
       console.debug(`Notion API gateway error, retrying (retries=${retries})`);
       return rpc(fnName, body, token, retries - 1);
     }
