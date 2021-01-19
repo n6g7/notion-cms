@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@notion-cms/types@^0.0.41":
-  version "0.0.41"
-  resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.0.41.tgz#aa999b9eb9bed1732869b4da318c5d7d178e2d08"
-  integrity sha512-qWdJp6stujHru3d2eYMU0T1VpZRuiunRIRdn87F26oSmTQG6hT0nYXxCQ54BunJvrzmViLhK6AAYbaUqvxlh8w==
+"@notion-cms/types@^0.0.42":
+  version "0.0.42"
+  resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.0.42.tgz#4cd36f5fb8e1eeb6a5bcc2405465498c5788e258"
+  integrity sha512-eA+o69NogR3hgSOeRopBLiJ11EHgzRhPXNmsle4coCMmOBXjLJH79gvpyQoHcbknSCMGTZZAPZoKX9Z1Cop+Zg==
 
 "@types/debug@^4.1.5":
   version "4.1.5"
@@ -13,9 +13,9 @@
   integrity sha512-Q1y515GcOdTHgagaVFhHnIFQ38ygs/kmxdNpvpou+raI9UO3YZcHDngBSYKQklcKlvA7iuQlmIKbzvmxcOE9CQ==
 
 "@types/lodash@^4.14.150":
-  version "4.14.167"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.167.tgz#ce7d78553e3c886d4ea643c37ec7edc20f16765e"
-  integrity sha512-w7tQPjARrvdeBkX/Rwg95S592JwxqOjmms3zWQ0XZgSyxSLdzWaYH3vErBhdVS/lRBX7F8aBYcYJYTr5TMGOzw==
+  version "4.14.168"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.168.tgz#fe24632e79b7ade3f132891afff86caa5e5ce008"
+  integrity sha512-oVfRvqHV/V6D1yifJbVRU3TMp8OT6o6BG+U9MkwuJ3U8/CsDHvalRpsxBqivn71ztOFZBTfJMvETbqHiaNSj7Q==
 
 ansi-regex@^2.0.0:
   version "2.1.1"
