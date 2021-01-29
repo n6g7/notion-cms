@@ -39,6 +39,7 @@ const makeModifier = (
 
       switch (block.type) {
         case "collection_view_page":
+        case "collection_view":
           const collection = blocksContext.find(
             (b) => b.id === block.collection_id
           ) as CollectionContent;
@@ -47,13 +48,20 @@ const makeModifier = (
               {collection?.icon} {collection.name[0][0]}
             </NotionLink>
           );
-        default:
+        case "page":
           const page = block as PageBlockValues;
           return (
             <NotionLink pageId={mod[1]}>
               {page.format?.page_icon} {page.properties.title[0][0]}
             </NotionLink>
           );
+        default:
+          log(
+            'Ignoring link to unknown block type "%s": %O',
+            block.type,
+            block
+          );
+          return null;
       }
     case "u":
       const user = blocksContext.find((b) => b.id === mod[1]) as Person;
