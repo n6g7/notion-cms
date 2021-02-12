@@ -46,7 +46,6 @@ class Notion {
     query?: QueryCollectionInput["query"]
   ): Promise<LiteCollectionItem[]> {
     const pageData = await loadPageChunk({ pageId }, this.token);
-    console.log(pageId, pageData);
     const [collection] = _.values(pageData.recordMap.collection);
     const [collectionView] = _.values(pageData.recordMap.collection_view);
     const collectionData = await queryCollection(
