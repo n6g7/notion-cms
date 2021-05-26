@@ -9,10 +9,10 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@notion-cms/types@^0.0.36":
-  version "0.0.36"
-  resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.0.36.tgz#865300ecc4c24997e71bce1ca6a230c196843bc6"
-  integrity sha512-9yYTYotof9+q0CVnmBWqrabRzoms+VcQAdKDTxl5ImwAU0J3CSLByFW/a1xncaoatXKD2eLXIYIOqN+KYTNHBA==
+"@notion-cms/types@^0.0.45":
+  version "0.0.45"
+  resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.0.45.tgz#7cd3afc1a6d17438e3eff0ac73c01a7b52b8d9ca"
+  integrity sha512-mnCtPKm6ZheqkZ1L8B2A0U39JuBaLXAtVfPmWFscCxtOpizGrrr8oxnjQakPDCKZbymVvRKZ4j67Usuwx9wf3A==
 
 "@types/debug@^4.1.5":
   version "4.1.5"
@@ -38,13 +38,19 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.9.49":
-  version "16.9.56"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.56.tgz#ea25847b53c5bec064933095fc366b1462e2adf0"
-  integrity sha512-gIkl4J44G/qxbuC6r2Xh+D3CGZpJ+NdWTItAPmZbR5mUS+JQ8Zvzpl0ea5qT/ZT3ZNTUcDKUVqV3xBE8wv/DyQ==
+"@types/react@*", "@types/react@^17.0.8":
+  version "17.0.8"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-17.0.8.tgz#fe76e3ba0fbb5602704110fd1e3035cf394778e3"
+  integrity sha512-3sx4c0PbXujrYAKwXxNONXUtRp9C+hE2di0IuxFyf5BELD+B+AXL8G7QrmSKhVwKZDbv0igiAjQAMhXj8Yg3aw==
   dependencies:
     "@types/prop-types" "*"
+    "@types/scheduler" "*"
     csstype "^3.0.2"
+
+"@types/scheduler@*":
+  version "0.16.1"
+  resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.1.tgz#18845205e86ff0038517aab7a18a62a6b9f71275"
+  integrity sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==
 
 "@types/unist@*":
   version "2.0.3"
