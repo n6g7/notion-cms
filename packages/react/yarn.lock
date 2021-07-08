@@ -32,9 +32,9 @@
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
 
 "@types/react-syntax-highlighter@^13.5.0":
-  version "13.5.1"
-  resolved "https://registry.yarnpkg.com/@types/react-syntax-highlighter/-/react-syntax-highlighter-13.5.1.tgz#12275c2acff30b776cbe054079336926037be484"
-  integrity sha512-nyWZcbi+O6gRyMi78fYy5MwoUXyl15mZZftMGlT+YbfQ1RIj/vtDaf+oCwTOHcMPFCy5lzrS2N8TfNmwMbPZ4Q==
+  version "13.5.2"
+  resolved "https://registry.yarnpkg.com/@types/react-syntax-highlighter/-/react-syntax-highlighter-13.5.2.tgz#357cc03581dc434c57c3b31f70e0eecdbf7b3ab0"
+  integrity sha512-sRZoKZBGKaE7CzMvTTgz+0x/aVR58ZYUTfB7HN76vC+yQnvo1FWtzNARBt0fGqcLGEVakEzMu/CtPzssmanu8Q==
   dependencies:
     "@types/react" "*"
 
