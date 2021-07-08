@@ -2,7 +2,7 @@
   "name": "notion-cms",
   "private": true,
   "devDependencies": {
-    "lerna": "^3.20.2",
+    "lerna": "^4.0.0",
     "prettier": "^2.0.5",
     "typescript": "^4.0.2"
   },
