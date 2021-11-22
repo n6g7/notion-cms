@@ -1,4 +1,11 @@
-import { Color, ISO8601Date, PropertyType, URL, UUID } from "./base";
+import {
+  Color,
+  ISO8601Date,
+  PropertyType,
+  RollupFunction,
+  URL,
+  UUID,
+} from "./base";
 import { ExternalFileObject, NotionFileObject, User } from "./objects";
 import { RichTextObject } from "./text";
 
@@ -26,7 +33,7 @@ export interface SelectProperty extends BaseProperty<"select"> {
     id: UUID;
     name: string;
     color: Color;
-  };
+  } | null;
 }
 
 export interface MultiSelectProperty extends BaseProperty<"multi_select"> {
@@ -40,8 +47,8 @@ export interface MultiSelectProperty extends BaseProperty<"multi_select"> {
 export interface DateProperty extends BaseProperty<"date"> {
   date: {
     start: ISO8601Date;
-    end?: ISO8601Date;
-  };
+    end: ISO8601Date | null;
+  } | null;
 }
 
 interface BaseFormulaValue {
@@ -57,7 +64,7 @@ interface NumberFormulaValue extends BaseFormulaValue {
 }
 interface BooleanFormulaValue extends BaseFormulaValue {
   type: "boolean";
-  boolean: boolean;
+  boolean: boolean | null;
 }
 interface DateFormulaValue extends BaseFormulaValue {
   type: "date";
@@ -77,21 +84,33 @@ export interface RelationProperty extends BaseProperty<"relation"> {
 }
 
 interface BaseRollupValue {
-  type: "number" | "date" | "array";
+  type: "number" | "date" | "array" | "unsupported";
 }
 interface NumberRollupValue extends BaseRollupValue {
   type: "number";
-  number: number;
+  number: number | null;
+  function: RollupFunction;
 }
 interface DateRollupValue extends BaseRollupValue {
   type: "date";
-  date: DateProperty["date"];
+  date: DateProperty["date"] | null;
+  function: RollupFunction;
 }
 interface ArrayRollupValue extends BaseRollupValue {
   type: "array";
-  array: Pick<Property, "id">[];
+  array: Omit<Property, "id">[];
+  function: RollupFunction;
 }
-type RollupValue = NumberRollupValue | DateRollupValue | ArrayRollupValue;
+interface UnsupportedRollupValue extends BaseRollupValue {
+  type: "unsupported";
+  unsupported: Record<string, never>;
+  function: RollupFunction;
+}
+type RollupValue =
+  | NumberRollupValue
+  | DateRollupValue
+  | ArrayRollupValue
+  | UnsupportedRollupValue;
 export interface RollupProperty extends BaseProperty<"rollup"> {
   rollup: RollupValue;
 }
@@ -116,15 +135,15 @@ export interface CheckboxProperty extends BaseProperty<"checkbox"> {
 }
 
 export interface URLProperty extends BaseProperty<"url"> {
-  url: URL;
+  url: URL | null;
 }
 
 export interface EmailProperty extends BaseProperty<"email"> {
-  email: string;
+  email: string | null;
 }
 
 export interface PhoneNumberProperty extends BaseProperty<"phone_number"> {
-  phone_number: string;
+  phone_number: string | null;
 }
 
 export interface CreatedTimeProperty extends BaseProperty<"created_time"> {

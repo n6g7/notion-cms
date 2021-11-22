@@ -1,5 +1,14 @@
-export { BlockType, Color, PropertyType, URL, UUID } from "./base";
-export { Block, Blocks, BookmarkBlock, List, Page } from "./objects";
+export { BlockType, Color, ISO8601Date, PropertyType, URL, UUID } from "./base";
+export {
+  Block,
+  Blocks,
+  BookmarkBlock,
+  EmojiObject,
+  FileObject,
+  List,
+  Page,
+  User,
+} from "./objects";
 export {
   Property,
   TitleProperty,

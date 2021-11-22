@@ -10,7 +10,7 @@ import { Property } from "./props";
 import { RichTextObject } from "./text";
 
 export interface BaseObject<T extends ObjectType> {
-  object: T;
+  object?: T;
 }
 
 export interface List<T extends Page | BaseBlock<any>>
@@ -22,11 +22,14 @@ export interface List<T extends Page | BaseBlock<any>>
 
 // USERS
 
+interface EmptyUser extends BaseObject<"user"> {
+  id: UUID;
+}
 interface BaseUser extends BaseObject<"user"> {
   id: UUID;
   type: "person" | "bot";
-  name: string;
-  avatar_url: URL;
+  name: string | null;
+  avatar_url: URL | null;
 }
 interface PersonUser extends BaseUser {
   type: "person";
@@ -36,9 +39,9 @@ interface PersonUser extends BaseUser {
 }
 interface BotUser extends BaseUser {
   type: "bot";
-  bot: {};
+  bot: any;
 }
-export type User = PersonUser | BotUser;
+export type User = EmptyUser | PersonUser | BotUser;
 
 // PAGES
 
@@ -64,11 +67,9 @@ export interface Page extends BaseObject<"page"> {
   created_time: ISO8601Date;
   last_edited_time: ISO8601Date;
   archived: boolean;
-  icon: FileObject | EmojiObject;
-  cover: ExternalFileObject;
-  properties: {
-    [name: string]: Property;
-  };
+  icon: FileObject | EmojiObject | null;
+  cover: FileObject | null;
+  properties: Record<string, Property>;
   parent: Parent;
   url: URL;
 }
@@ -80,25 +81,28 @@ interface BaseFileObject extends BaseObject<"external" | "file"> {
 }
 
 export interface NotionFileObject extends BaseFileObject {
-  type: "file";
+  type?: "file";
   file: {
     url: URL;
     expiry_time: ISO8601Date;
   };
+  name?: string;
 }
 
 export interface ExternalFileObject extends BaseFileObject {
-  type: "external";
+  type?: "external";
   external: {
     url: URL;
   };
+  name?: string;
 }
 
 export type FileObject = NotionFileObject | ExternalFileObject;
 
 // EMOJI
 
-interface EmojiObject extends BaseObject<"emoji"> {
+export interface EmojiObject {
+  type: "emoji";
   emoji: string;
 }
 
@@ -111,6 +115,7 @@ export interface BaseBlock<T extends BlockType> extends BaseObject<"block"> {
   has_children: boolean;
   archived: boolean;
   type: T;
+  children?: Blocks;
 }
 
 export interface ParagraphBlock extends BaseBlock<"paragraph"> {
@@ -142,14 +147,14 @@ export interface CalloutBlock extends BaseBlock<"callout"> {
   callout: {
     text: RichTextObject[];
     icon: FileObject | EmojiObject;
-    children: Blocks;
+    children?: Blocks;
   };
 }
 
 export interface QuoteBlock extends BaseBlock<"quote"> {
   quote: {
     text: RichTextObject[];
-    children: Blocks;
+    children?: Blocks;
   };
 }
 
@@ -184,7 +189,7 @@ export interface ToggleBlock extends BaseBlock<"toggle"> {
 
 export interface CodeBlock extends BaseBlock<"code"> {
   code: {
-    text: string;
+    text: RichTextObject[];
     language: CodeLanguage;
   };
 }
@@ -256,8 +261,35 @@ export interface ColumnBlock extends BaseBlock<"column"> {
   column: {};
 }
 
+export interface TemplateBlock extends BaseBlock<"template"> {
+  template: any;
+}
+
+export interface SyncedBlock extends BaseBlock<"synced_block"> {
+  synced_block: {
+    synced_from: {
+      type: "block_id";
+      block_id: UUID;
+    };
+  };
+}
+
+export interface LinkToPageBlock extends BaseBlock<"link_to_page"> {
+  link_to_page:
+    | { type: "page_id"; page_id: UUID }
+    | { type: "database_id"; database_id: UUID };
+}
+
+export interface AudioBlock extends BaseBlock<"audio"> {
+  audio: any;
+}
+
+export interface LinkPreviewBlock extends BaseBlock<"link_preview"> {
+  link_preview: { url: string };
+}
+
 export interface UnsupportedBlock extends BaseBlock<"unsupported"> {
-  unsupported: {};
+  unsupported?: {};
 }
 
 export type Block =
@@ -286,5 +318,10 @@ export type Block =
   | BreadcrumbBlock
   | ColumnListBlock
   | ColumnBlock
+  | TemplateBlock
+  | SyncedBlock
+  | LinkToPageBlock
+  | AudioBlock
+  | LinkPreviewBlock
   | UnsupportedBlock;
 export type Blocks = Block[];

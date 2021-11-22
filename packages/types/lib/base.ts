@@ -37,6 +37,11 @@ export type BlockType =
   | "breadcrumb"
   | "column"
   | "column_list"
+  | "template"
+  | "synced_block"
+  | "link_to_page"
+  | "audio"
+  | "link_preview"
   | "unsupported";
 
 export type PropertyType =
@@ -70,7 +75,16 @@ export type Color =
   | "green"
   | "blue"
   | "purple"
-  | "pink";
+  | "pink"
+  | "gray_background"
+  | "brown_background"
+  | "red_background"
+  | "orange_background"
+  | "yellow_background"
+  | "green_background"
+  | "blue_background"
+  | "purple_background"
+  | "pink_background";
 
 export type CodeLanguage =
   | "abap"
@@ -100,7 +114,7 @@ export type CodeLanguage =
   | "haskell"
   | "html"
   | "java"
-  | "javaSsript"
+  | "javascript"
   | "json"
   | "julia"
   | "kotlin"
@@ -145,3 +159,27 @@ export type CodeLanguage =
   | "xml"
   | "yaml"
   | "java/c/c++/c#";
+
+export type RollupFunction =
+  | "count"
+  | "count_values"
+  | "empty"
+  | "not_empty"
+  | "unique"
+  | "show_unique"
+  | "percent_empty"
+  | "percent_not_empty"
+  | "sum"
+  | "average"
+  | "median"
+  | "min"
+  | "max"
+  | "range"
+  | "earliest_date"
+  | "latest_date"
+  | "date_range"
+  | "checked"
+  | "unchecked"
+  | "percent_checked"
+  | "percent_unchecked"
+  | "show_original";
