@@ -15,7 +15,7 @@ type BaseRichTextObject = {
   };
 };
 
-interface TextRTO extends BaseRichTextObject {
+export interface TextRTO extends BaseRichTextObject {
   type: "text";
   text: {
     content: string;
@@ -54,12 +54,12 @@ type MentionObject =
   | DatabaseMention
   | DateMention
   | LinkPreviewMention;
-interface MentionRTO extends BaseRichTextObject {
+export interface MentionRTO extends BaseRichTextObject {
   type: "mention";
   mention: MentionObject;
 }
 
-interface EquationRTO extends BaseRichTextObject {
+export interface EquationRTO extends BaseRichTextObject {
   type: "equation";
   equation: {
     expression: string;

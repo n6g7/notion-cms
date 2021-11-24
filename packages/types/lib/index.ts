@@ -31,4 +31,4 @@ export {
   LastEditedTimeProperty,
   LastEditedByProperty,
 } from "./props";
-export { RichTextObject } from "./text";
+export { RichTextObject, TextRTO, MentionRTO, EquationRTO } from "./text";
