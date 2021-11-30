@@ -1,9 +1,11 @@
 import React, { useMemo } from "react";
 import { Blocks, BlockType } from "@notion-cms/types";
 import Block from "./Block";
+import DebugWrapper from "./Debug";
 
 interface Props {
   blocks: Blocks;
+  debug?: boolean;
 }
 
 type ListType = "bulleted_list_item" | "numbered_list_item";
@@ -13,7 +15,7 @@ const listMapping: Record<ListType, "ol" | "ul"> = {
   numbered_list_item: "ol",
 };
 
-const Blocks: React.FC<Props> = ({ blocks }) => {
+const Blocks: React.FC<Props> = ({ blocks, debug = false }) => {
   // Merge list blocks into one.
   const blockElements = useMemo(() => {
     const elements = [];
@@ -32,13 +34,20 @@ const Blocks: React.FC<Props> = ({ blocks }) => {
         listItems = [];
       }
 
+      const blockElement = <Block block={block} key={block.id} />;
+      const wrappedBlockElement = debug ? (
+        <DebugWrapper block={block}>{blockElement}</DebugWrapper>
+      ) : (
+        blockElement
+      );
+
       if (!listTypes.includes(block.type)) {
-        elements.push(<Block block={block} key={block.id} />);
+        elements.push(wrappedBlockElement);
         continue;
       }
 
       listType = block.type as ListType;
-      listItems.push(<Block block={block} key={block.id} />);
+      listItems.push(wrappedBlockElement);
     }
     if (listType) {
       const ListComponent = listMapping[listType];
