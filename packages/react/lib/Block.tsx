@@ -111,6 +111,7 @@ const Block: React.FC<Props> = ({ block }) => {
 
     // We're not rendering those block types;
     case "unsupported":
+    case "template":
       return null;
     default:
       log('Ignoring unknown block type "%s": %O', (block as any).type, block);

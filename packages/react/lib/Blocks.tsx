@@ -36,7 +36,9 @@ const Blocks: React.FC<Props> = ({ blocks, debug = false }) => {
 
       const blockElement = <Block block={block} key={block.id} />;
       const wrappedBlockElement = debug ? (
-        <DebugWrapper block={block}>{blockElement}</DebugWrapper>
+        <DebugWrapper block={block} key={block.id}>
+          {blockElement}
+        </DebugWrapper>
       ) : (
         blockElement
       );
