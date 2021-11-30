@@ -68,6 +68,14 @@ export async function parseProperty(
       switch (property.rollup.type) {
         case "number":
           return property.rollup.number;
+        case "array":
+          return property.rollup.array.map((x) => {
+            switch (x.type) {
+              default:
+                log("Unknown rollup array item type %s: %o", x.type, x);
+                return null;
+            }
+          });
         default:
           log(
             "Unknown rollup type %s: %o",
@@ -79,6 +87,9 @@ export async function parseProperty(
 
     case "title":
       return parseRichText(property.title);
+
+    case "people":
+      return property.people;
 
     case "files":
       return property;

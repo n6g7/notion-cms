@@ -1,4 +1,4 @@
-import { Blocks, FilesProperty, URL } from "@notion-cms/types";
+import { Blocks, FilesProperty, URL, User } from "@notion-cms/types";
 
 export interface DatabaseProps {
   [key: string]:
@@ -8,7 +8,8 @@ export interface DatabaseProps {
     | number[]
     | boolean
     | { start: string; end: string }
-    | FilesProperty;
+    | FilesProperty
+    | User[];
 }
 
 export interface ParsedPage<Props extends DatabaseProps> {
