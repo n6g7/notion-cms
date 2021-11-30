@@ -98,7 +98,32 @@ interface DateRollupValue extends BaseRollupValue {
 }
 interface ArrayRollupValue extends BaseRollupValue {
   type: "array";
-  array: Omit<Property, "id">[];
+  array: (
+    | {
+        type: "formula";
+        formula:
+          | {
+              type: "string";
+              string: string | null;
+            }
+          | {
+              type: "date";
+              date: {
+                start: string;
+                end: string | null;
+              } | null;
+            }
+          | {
+              type: "number";
+              number: number | null;
+            }
+          | {
+              type: "boolean";
+              boolean: boolean | null;
+            };
+      }
+    | any
+  )[];
   function: RollupFunction;
 }
 interface UnsupportedRollupValue extends BaseRollupValue {

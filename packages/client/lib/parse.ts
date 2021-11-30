@@ -71,6 +71,29 @@ export async function parseProperty(
         case "array":
           return property.rollup.array.map((x) => {
             switch (x.type) {
+              case "formula":
+                switch (x.formula.type) {
+                  case "string":
+                    return x.formula.string;
+                  case "date":
+                    if (x.formula.date.end)
+                      return {
+                        start: parseDate(x.formula.date.start),
+                        end: parseDate(x.formula.date.end),
+                      };
+                    else return parseDate(x.formula.date.start);
+                  case "number":
+                    return x.formula.number;
+                  case "boolean":
+                    return x.formula.boolean;
+                  default:
+                    log(
+                      "Unknown rollup > array > formula type %s: %o",
+                      x.formula.type,
+                      x.formula
+                    );
+                    return null;
+                }
               default:
                 log("Unknown rollup array item type %s: %o", x.type, x);
                 return null;
