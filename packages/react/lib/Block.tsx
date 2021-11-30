@@ -1,101 +1,17 @@
-import React, { useContext, useMemo } from "react";
+import React from "react";
 import debug from "debug";
-import {
-  BlockValues,
-  TextSection,
-  TextModifier,
-  PageBlockValues,
-  Person,
-  CollectionContent,
-} from "@notion-cms/types";
-import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
-import { duotoneLight } from "react-syntax-highlighter/dist/cjs/styles/prism";
-import NotionLink from "./NotionLink";
-import Callout from "./Callout";
-import BlocksContext from "./BlocksContext";
-import Bookmark from "./Bookmark";
+import { Block } from "@notion-cms/types";
+
+import Bookmark from "./components/Bookmark";
+import Callout from "./components/Callout";
+import RTO from "./RTO";
+import Toggle from "./components/Toggle";
 
 const log = debug("notion-cms:react");
 
-interface Props {
-  block: BlockValues;
+export interface Props {
+  block: Block;
 }
-
-const makeModifier = (
-  blocksContext: (BlockValues | Person | CollectionContent)[]
-) => (children: JSX.Element, mod: TextModifier): JSX.Element => {
-  switch (mod[0]) {
-    case "b":
-      return <strong>{children}</strong>;
-    case "i":
-      return <em>{children}</em>;
-    case "a":
-      return <a href={mod[1]}>{children}</a>;
-    case "c":
-      return <code>{children}</code>;
-    case "p":
-      const block = blocksContext.find((b) => b.id === mod[1]);
-      if (!("type" in block)) return children;
-
-      switch (block.type) {
-        case "collection_view_page":
-        case "collection_view":
-          const collection = blocksContext.find(
-            (b) => b.id === block.collection_id
-          ) as CollectionContent;
-          return (
-            <NotionLink pageId={mod[1]}>
-              {collection?.icon} {collection.name[0][0]}
-            </NotionLink>
-          );
-        case "page":
-          const page = block as PageBlockValues;
-          return (
-            <NotionLink pageId={mod[1]}>
-              {page.format?.page_icon} {page.properties.title[0][0]}
-            </NotionLink>
-          );
-        default:
-          log(
-            'Ignoring link to unknown block type "%s": %O',
-            block.type,
-            block
-          );
-          return null;
-      }
-    case "u":
-      const user = blocksContext.find((b) => b.id === mod[1]) as Person;
-      return (
-        <span style={{ color: "rgba(55, 53, 47, 0.6)" }}>
-          <span style={{ opacity: 0.6 }}>@</span>
-          {user.given_name} {user.family_name}
-        </span>
-      );
-    default:
-      log('Ignoring unknown text modifier "%s": %O', mod[0], mod);
-      return children;
-  }
-};
-const Text = (sections: TextSection[]) => {
-  if (!sections) return "";
-
-  const { blocks } = useContext(BlocksContext);
-  const applyModifier = useMemo(() => makeModifier(blocks), [blocks]);
-
-  return sections.map(([text, modifiers = []]) => {
-    const NewlinedText = (
-      <React.Fragment>
-        {text
-          .split("\n")
-          .reduce(
-            (arr, text) => [...arr, arr.length > 0 ? <br /> : null, text],
-            []
-          )}
-      </React.Fragment>
-    );
-    return modifiers.reduce(applyModifier, NewlinedText);
-  });
-};
 
 const languageMapping = {
   Bash: "bash",
@@ -116,78 +32,88 @@ const languageMapping = {
 };
 
 const Block: React.FC<Props> = ({ block }) => {
-  const { blocks, getImageUrl } = useContext(BlocksContext);
-
   switch (block.type) {
-    case "header":
-      return <h1 key={block.id}>{Text(block.properties?.title)}</h1>;
-    case "sub_header":
-      return <h2 key={block.id}>{Text(block.properties?.title)}</h2>;
-    case "sub_sub_header":
-      return <h3 key={block.id}>{Text(block.properties?.title)}</h3>;
-    case "text":
-      return <p key={block.id}>{Text(block.properties?.title)}</p>;
+    case "heading_1":
+      return (
+        <h1 key={block.id}>
+          <RTO objects={block.heading_1.text} />
+        </h1>
+      );
+    case "heading_2":
+      return (
+        <h2 key={block.id}>
+          <RTO objects={block.heading_2.text} />
+        </h2>
+      );
+    case "heading_3":
+      return (
+        <h3 key={block.id}>
+          <RTO objects={block.heading_3.text} />
+        </h3>
+      );
+    case "paragraph":
+      return (
+        <p key={block.id}>
+          <RTO objects={block.paragraph.text} />
+        </p>
+      );
     case "image":
       return (
         <img
           key={block.id}
-          src={getImageUrl(block)}
-          alt={block.id}
-          width={block.format ? block.format.block_width : null}
+          src={
+            block.image.type == "file"
+              ? block.image.file.url
+              : block.image.external.url
+          }
+          alt={block.image.caption.map((s) => s.plain_text).join(" ")}
+          width="100%"
         />
       );
-    case "bulleted_list":
-    case "numbered_list":
-      const content = block.content
-        ? block.content.map((id) => blocks.find((b) => b.id === id))
-        : [];
+    case "bulleted_list_item":
+    case "numbered_list_item":
+      const richTextObjects =
+        block.type == "bulleted_list_item"
+          ? block.bulleted_list_item?.text
+          : block.numbered_list_item?.text;
+
+      let children = null;
+      if (block.has_children) {
+        const Wrapper =
+          block.children[0].type === "bulleted_list_item" ? "ul" : "ol";
+        children = (
+          <Wrapper>
+            {block.children.map((block) => (
+              <Block block={block} key={block.id} />
+            ))}
+          </Wrapper>
+        );
+      }
+
       return (
         <li key={block.id}>
-          {Text(block.properties?.title)}
-          {content.length > 0 && (
-            <ul>
-              {content.map((b) => (
-                <Block block={b as BlockValues} />
-              ))}
-            </ul>
-          )}
+          <RTO objects={richTextObjects} />
+          {children}
         </li>
       );
     case "divider":
       return <hr key={block.id} />;
     case "callout":
       return (
-        <Callout
-          key={block.id}
-          colour={block.format.block_color}
-          icon={block.format.page_icon}
-        >
-          {Text(block.properties?.title)}
+        <Callout key={block.id} icon={block.callout.icon}>
+          <RTO objects={block.callout.text} />
         </Callout>
-      );
-    case "quote":
-      return (
-        <blockquote key={block.id}>{Text(block.properties?.title)}</blockquote>
-      );
-    case "code":
-      const language = languageMapping[block.properties?.language[0]];
-      return (
-        <SyntaxHighlighter
-          key={block.id}
-          language={language}
-          style={duotoneLight}
-        >
-          {block.properties?.title[0][0]}
-        </SyntaxHighlighter>
       );
     case "bookmark":
       return <Bookmark key={block.id} block={block} />;
+    case "toggle":
+      return <Toggle title={block.toggle.text} content={block.children} />;
 
     // We're not rendering those block types;
-    case "factory":
+    case "unsupported":
       return null;
     default:
-      log('Ignoring unknown block type "%s": %O', block.type, block);
+      log('Ignoring unknown block type "%s": %O', (block as any).type, block);
       return null;
   }
 };

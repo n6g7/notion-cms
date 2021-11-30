@@ -1,49 +1,25 @@
 import React, { useMemo } from "react";
-import {
-  BlockValues,
-  BlockType,
-  Person,
-  ImageBlockValues,
-  CollectionContent,
-} from "@notion-cms/types";
+import { Blocks, BlockType } from "@notion-cms/types";
 import Block from "./Block";
-import BlocksContext from "./BlocksContext";
 
 interface Props {
-  blocks: (BlockValues | Person | CollectionContent)[];
-  rootOnly?: boolean;
-  getImageUrl: (imageBlock: ImageBlockValues) => string;
+  blocks: Blocks;
 }
 
-type ListType = "bulleted_list" | "numbered_list";
-const listTypes: BlockType[] = ["bulleted_list", "numbered_list"];
+type ListType = "bulleted_list_item" | "numbered_list_item";
+const listTypes: BlockType[] = ["bulleted_list_item", "numbered_list_item"];
 const listMapping: Record<ListType, "ol" | "ul"> = {
-  bulleted_list: "ul",
-  numbered_list: "ol",
+  bulleted_list_item: "ul",
+  numbered_list_item: "ol",
 };
 
-const defaultImageUrl = (imageBlock: ImageBlockValues) =>
-  imageBlock.properties.source[0][0];
-
-const Blocks: React.FC<Props> = ({
-  blocks,
-  rootOnly = true,
-  getImageUrl = defaultImageUrl,
-}) => {
-  const displayableBlocks = useMemo(
-    () =>
-      blocks.filter(
-        (b) => "type" in b && (!rootOnly || b.isRoot)
-      ) as BlockValues[],
-    [blocks, rootOnly]
-  );
-
+const Blocks: React.FC<Props> = ({ blocks }) => {
   // Merge list blocks into one.
   const blockElements = useMemo(() => {
     const elements = [];
     let listType: ListType = null;
     let listItems = [];
-    for (let block of displayableBlocks) {
+    for (let block of blocks) {
       // Finshing previous list
       if (listType && block.type !== listType) {
         const ListComponent = listMapping[listType];
@@ -69,13 +45,9 @@ const Blocks: React.FC<Props> = ({
       elements.push(<ListComponent key="last-list">{listItems}</ListComponent>);
     }
     return elements;
-  }, [displayableBlocks]);
+  }, [blocks]);
 
-  return (
-    <BlocksContext.Provider value={{ blocks, getImageUrl }}>
-      <React.Fragment>{blockElements}</React.Fragment>
-    </BlocksContext.Provider>
-  );
+  return <React.Fragment>{blockElements}</React.Fragment>;
 };
 
 export default Blocks;
