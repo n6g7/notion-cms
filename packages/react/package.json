@@ -15,7 +15,7 @@
   "scripts": {
     "build": "tsc",
     "pretest": "prettier --check 'lib/*.{ts,tsx}'",
-    "test": "tsc"
+    "test": "jest --passWithNoTests"
   },
   "dependencies": {
     "@notion-cms/types": "^0.0.45",

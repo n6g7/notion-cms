@@ -14,7 +14,7 @@
   "scripts": {
     "build": "tsc",
     "pretest": "prettier --check 'lib/*.{ts,tsx}'",
-    "test": "tsc"
+    "test": "jest --passWithNoTests"
   },
   "keywords": [
     "notion.so",

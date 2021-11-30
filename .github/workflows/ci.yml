@@ -8,21 +8,24 @@ jobs:
 
     strategy:
       matrix:
-        node_version: ['10', '12', '14']
+        node_version: ["12", "14", "16"]
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node_version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node_version }}
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node_version }}
 
-    - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
 
-    - name: Setup lerna
-      run: yarn setup
+      - name: Setup lerna
+        run: yarn setup
 
-    - name: Run tests
-      run: yarn test
+      - name: Run tests
+        run: yarn test
+
+      - name: Build
+        run: yarn build
