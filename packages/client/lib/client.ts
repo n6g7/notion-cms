@@ -17,6 +17,7 @@ const log = debug("notion-cms:client");
 class NotionClient extends Client {
   async loadDatabase<T extends DatabaseProps>(
     databaseId: UUID,
+    limit: number = Infinity,
     pageSize: number = 100
   ): Promise<ParsedPage<T>[]> {
     log("Loading database %s...", databaseId);
@@ -27,7 +28,7 @@ class NotionClient extends Client {
     let pages = response.results;
 
     // Un-paginate
-    while (response.has_more) {
+    while (response.has_more && pages.length < limit) {
       log("Database %s: one more page...", databaseId);
       response = await this.databases.query({
         database_id: databaseId,
