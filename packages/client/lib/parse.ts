@@ -1,123 +1,171 @@
 import debug from "debug";
-import {
-  UserBlockValues,
-  DataType,
-  UUID,
-  PageBlockValues,
-} from "@notion-cms/types";
-import { getRecordValues } from "./rpc";
+import { Page, Property, RichTextObject, ISO8601Date } from "@notion-cms/types";
+import _ from "lodash";
+import { DatabaseProps, ParsedPage } from "./types";
 
 const log = debug("notion-cms:parser");
 
-export interface NotionUser {
-  id: UUID;
-  email: string;
-  given_name: string;
-  family_name: string;
-  profile_photo: string | null;
+function parseRichText(value: RichTextObject[]) {
+  return value.reduce((acc, text) => acc + text.plain_text, "");
+}
+
+function parseDate(value: ISO8601Date) {
+  return new Date(value).toISOString();
 }
 
 export async function parseProperty(
-  type: "checkbox",
-  property: any,
-  page: PageBlockValues,
-  token: string
-): Promise<boolean>;
-export async function parseProperty(
-  type: "number",
-  property: any,
-  page: PageBlockValues,
-  token: string
-): Promise<number>;
-export async function parseProperty(
-  type: "date",
-  property: any,
-  page: PageBlockValues,
-  token: string
-): Promise<Date>;
-export async function parseProperty(
-  type: "text" | "title" | "select",
-  property: any,
-  page: PageBlockValues,
-  token: string
-): Promise<string>;
-export async function parseProperty(
-  type: "multi_select" | "relation",
-  property: any,
-  page: PageBlockValues,
-  token: string
-): Promise<string[]>;
-export async function parseProperty(
-  type: "person",
-  property: any,
-  page: PageBlockValues,
-  token: string
-): Promise<NotionUser[]>;
-export async function parseProperty(
-  type: DataType,
-  property: any,
-  page: PageBlockValues,
-  token: string
-) {
-  if (type !== "created_time" && !property) return null;
+  property: Property
+): Promise<DatabaseProps[string]> {
+  switch (property.type) {
+    case "rich_text":
+      return parseRichText(property.rich_text);
 
-  switch (type) {
-    case "checkbox":
-      if (!property) return false;
-      return property[0][0] === "Yes";
     case "number":
-      return parseFloat(property[0][0]);
-    case "date":
-      const { type: dateType, start_date, start_time } = property[0][1][0][1];
-      switch (dateType) {
-        case "date":
-          return new Date(start_date).toISOString();
-        case "datetime":
-          return new Date(`${start_date}T${start_time}`).toISOString();
-      }
-    case "created_time":
-      return new Date(page.created_time).toISOString();
-    case "person":
-      return await Promise.all(
-        property
-          .filter((p: any, i: number) => i % 2 === 0)
-          .map(async (p: any) => {
-            const {
-              value: { id, email, given_name, family_name, profile_photo },
-            } = await getRecordValues<UserBlockValues>(
-              {
-                table: "notion_user",
-                id: p[1][0][1],
-              },
-              token
-            );
-            return {
-              id,
-              email,
-              given_name,
-              family_name,
-              profile_photo: profile_photo || null,
-            };
-          })
-      );
-    case "text":
-    case "title":
+      return property.number;
+
     case "select":
-      return property[0][0];
+      return property.select?.name || null;
+
     case "multi_select":
-      return property[0][0].split(",");
+      return property.multi_select.map((x) => x.name);
+
+    case "date":
+      if (property.date.end)
+        return {
+          start: parseDate(property.date.start),
+          end: parseDate(property.date.end),
+        };
+      else return parseDate(property.date.start);
+
+    case "formula":
+      switch (property.formula.type) {
+        case "boolean":
+          return property.formula.boolean;
+        case "date":
+          if (property.formula.date.end)
+            return {
+              start: parseDate(property.formula.date.start),
+              end: parseDate(property.formula.date.end),
+            };
+          else return parseDate(property.formula.date.start);
+        case "number":
+          return property.formula.number;
+        case "string":
+          return property.formula.string;
+        default:
+          log(
+            "Unknown formula type %s: %o",
+            (property.formula as any).type,
+            property.formula
+          );
+          return null;
+      }
+
     case "relation":
-      // log(property);
-      // log(
-      //   property
-      //     .filter((_: any, i: number) => i % 2 === 0)
-      //     .map((x: any) => x[1])
-      // );
-      return property
-        .filter((_: any, i: number) => i % 2 === 0)
-        .map((x: any) => x[1][0][1]);
-    default:
-      log("Unknown type %s: %o", type, property);
+      return property.relation.map((rel) => rel.id);
+
+    case "rollup":
+      switch (property.rollup.type) {
+        case "number":
+          return property.rollup.number;
+        case "array":
+          return property.rollup.array.map((x) => {
+            switch (x.type) {
+              case "formula":
+                switch (x.formula.type) {
+                  case "string":
+                    return x.formula.string;
+                  case "date":
+                    if (x.formula.date.end)
+                      return {
+                        start: parseDate(x.formula.date.start),
+                        end: parseDate(x.formula.date.end),
+                      };
+                    else return parseDate(x.formula.date.start);
+                  case "number":
+                    return x.formula.number;
+                  case "boolean":
+                    return x.formula.boolean;
+                  default:
+                    log(
+                      "Unknown rollup > array > formula type %s: %o",
+                      x.formula.type,
+                      x.formula
+                    );
+                    return null;
+                }
+              default:
+                log("Unknown rollup array item type %s: %o", x.type, x);
+                return null;
+            }
+          });
+        default:
+          log(
+            "Unknown rollup type %s: %o",
+            (property.rollup as any).type,
+            property.rollup
+          );
+          return null;
+      }
+
+    case "title":
+      return parseRichText(property.title);
+
+    case "people":
+      return property.people;
+
+    case "files":
       return property;
+
+    case "checkbox":
+      return property.checkbox;
+
+    case "url":
+      return property.url;
+
+    case "email":
+      return property.email;
+
+    case "phone_number":
+      return property.phone_number;
+
+    case "created_time":
+      return parseDate(property.created_time);
+
+    case "last_edited_time":
+      return parseDate(property.last_edited_time);
+
+    default:
+      log("Unknown type %s: %o", (property as any).type, property);
+      return null;
   }
+}
+
+export async function parsePage<T extends DatabaseProps>(
+  page: Page
+): Promise<ParsedPage<T>> {
+  const props = await Promise.all(
+    Object.keys(page.properties).map(async (key) => ({
+      [key]: await parseProperty(page.properties[key] as any),
+    }))
+  );
+
+  return {
+    id: page.id,
+    meta: {
+      icon: page.icon
+        ? "emoji" in page.icon
+          ? page.icon.emoji
+          : page.icon.type == "file"
+          ? page.icon.file.url
+          : page.icon.external.url
+        : null,
+      cover: page.cover
+        ? page.cover.type === "file"
+          ? page.cover.file.url
+          : page.cover.external.url
+        : null,
+    },
+    props: _.merge({}, ...props),
+  };
 }
