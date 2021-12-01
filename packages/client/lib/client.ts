@@ -14,16 +14,22 @@ import { parsePage } from "./parse";
 
 const log = debug("notion-cms:client");
 
+interface LoadDatabaseOpts {
+  limit?: number;
+  pageSize?: number;
+  filter?: any;
+}
+
 class NotionClient extends Client {
   async loadDatabase<T extends DatabaseProps>(
     databaseId: UUID,
-    limit: number = Infinity,
-    pageSize: number = 100
+    { limit = Infinity, pageSize = 100, filter = null }: LoadDatabaseOpts
   ): Promise<ParsedPage<T>[]> {
     log("Loading database %s...", databaseId);
     let response: List<NotionPage> = await this.databases.query({
       database_id: databaseId,
       page_size: pageSize,
+      filter,
     });
     let pages = response.results;
 
@@ -33,6 +39,7 @@ class NotionClient extends Client {
       response = await this.databases.query({
         database_id: databaseId,
         page_size: pageSize,
+        filter,
         start_cursor: response.next_cursor,
       });
       pages = pages.concat(response.results);
