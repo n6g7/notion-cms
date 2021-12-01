@@ -23,7 +23,7 @@ interface LoadDatabaseOpts {
 class NotionClient extends Client {
   async loadDatabase<T extends DatabaseProps>(
     databaseId: UUID,
-    { limit = Infinity, pageSize = 100, filter = null }: LoadDatabaseOpts
+    { limit = Infinity, pageSize = 100, filter }: LoadDatabaseOpts
   ): Promise<ParsedPage<T>[]> {
     log("Loading database %s...", databaseId);
     let response: List<NotionPage> = await this.databases.query({
