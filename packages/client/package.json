@@ -1,6 +1,6 @@
 {
   "name": "@notion-cms/client",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0",
   "description": "Notion.so CMS client",
   "author": "Nathan Gaberel <nathan@gnab.fr>",
   "homepage": "",
@@ -18,7 +18,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@notion-cms/types": "^0.1.0-alpha.2",
+    "@notion-cms/types": "^0.1.0",
     "@notionhq/client": "^0.4.8",
     "debug": "^4.1.1",
     "isomorphic-unfetch": "^3.0.0",

@@ -1,6 +1,6 @@
 {
   "name": "@notion-cms/react",
-  "version": "0.1.0-alpha.3",
+  "version": "0.1.0",
   "description": "React components to render Notion.so blocks.",
   "author": "Nathan Gaberel <nathan@gnab.fr>",
   "homepage": "",
@@ -18,7 +18,7 @@
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
-    "@notion-cms/types": "^0.1.0-alpha.2",
+    "@notion-cms/types": "^0.1.0",
     "debug": "^4.1.1",
     "highlight.js": "^11.3.1",
     "styled-components": "^5.3.3"
