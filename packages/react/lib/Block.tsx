@@ -6,6 +6,8 @@ import Bookmark from "./components/Bookmark";
 import Callout from "./components/Callout";
 import RTO from "./RTO";
 import Toggle from "./components/Toggle";
+import Column from "./components/Column";
+import { Blocks } from ".";
 
 const log = debug("notion-cms:react");
 
@@ -108,6 +110,16 @@ const Block: React.FC<Props> = ({ block }) => {
       return <Bookmark key={block.id} block={block} />;
     case "toggle":
       return <Toggle title={block.toggle.text} content={block.children} />;
+    case "column_list":
+      return (
+        <Column.List>
+          {block.children.map((col) => (
+            <Column key={col.id}>
+              <Blocks blocks={col.children} />
+            </Column>
+          ))}
+        </Column.List>
+      );
 
     // We're not rendering those block types;
     case "unsupported":
