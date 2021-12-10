@@ -61,16 +61,20 @@ const Block: React.FC<Props> = ({ block }) => {
       );
     case "image":
       return (
-        <img
-          key={block.id}
-          src={
-            block.image.type == "file"
-              ? block.image.file.url
-              : block.image.external.url
-          }
-          alt={block.image.caption.map((s) => s.plain_text).join(" ")}
-          width="100%"
-        />
+        <figure key={block.id}>
+          <img
+            src={
+              block.image.type == "file"
+                ? block.image.file.url
+                : block.image.external.url
+            }
+            alt={block.image.caption.map((s) => s.plain_text).join(" ")}
+            width="100%"
+          />
+          <figcaption>
+            <RTO objects={block.image.caption} />
+          </figcaption>
+        </figure>
       );
     case "bulleted_list_item":
     case "numbered_list_item":
