@@ -4,38 +4,63 @@ Use [notion.so](https://www.notion.so/) as a headless CMS.
 
 ## Installation
 
-`npm install @notion-cms/client` or `yarn add @notion-cms/client`
+Choose one:
+- `yarn add @notion-cms/client @notion-cms/react`
+- `npm install @notion-cms/client @notion-cms/react`
 
 ## Usage
 
+### Setting up a Notion integration
+
+As of v0.1.0 notion-cms uses the official [Notion API](https://developers.notion.com/) which enables us to cleanly read data from Notion, manage access permissions, etc.
+To use the Notion API we need to create a Notion integration:
+
+- Go to https://www.notion.so/my-integrations and create an integration for your project.
+- If you're using Notion as a CMS typically read access will be enough (no need for insert or update capabilities). Adapt to your own needs.
+- Copy the integration token.
+- Share any page you need access to with the newly created integration.
+
 ### Setting up a collection
 
-The easiest way to setup your CMS data on Notion is to use [collections](https://www.notion.so/Create-a-database-2529ab92d63b478f87d39c2289527444) (aka "databases" or "tables"):
+The easiest way to setup your CMS data on Notion is to use [collections](https://www.notion.so/Create-a-database-2529ab92d63b478f87d39c2289527444) (aka "databases"):
 ![A collection on Notion.so](./docs/notion-collection.png)
 
 Use properties of any type to represent your data.
 
 ### Loading data
 
-- The first thing you need to load your collection data is to instanciate a Notion client:
+- The first thing you need to load your collection data is to instanciate a Notion client using the integration token from above:
   ```ts
   import Notion from "@notion-cms/client";
-  export const notion = new Notion();
+  export const notion = new Notion({ auth: process.env.NOTION_API_KEY });
   ```
+
 - Then we will setup a Typescript interface to match our collection property:
-
   ```ts
-  import { LiteCollectionItem } from "@notion-cms/client";
+  import Notion, {
+    DatabaseProps,
+    ParsedPage,
+    ParsedPageWithBlocks,
+  } from "@notion-cms/client";
 
-  interface PageProps {
+  export type Duration =
+    | "Short (0-15 min)"
+    | "Medium (15-30 min)"
+    | "Long (30+ min)";
+  export type HealthLevel = "Indulging" | "Comforting" | "Energising";
+  interface RecipeProps extends DatabaseProps {
     Name: string;
-    Slug: string;
-    PublicationDate: Date;
+    "Health score": HealthLevel;
+    "Preparation time (min)": Duration;
+    "Cooking time (min)": Duration;
+    Serves: number;
   }
-  export interface Page extends LiteCollectionItem<PageProps> {}
+  export interface Recipe extends ParsedPage<RecipeProps> {}
+  export interface RecipeWithBlocks extends ParsedPageWithBlocks<RecipeProps> {}
   ```
 
-  The [`LiteCollectionItem`](./packages/client/lib/index.ts) generic interface wraps the collection properties (aka props, `PageProps`) as well as meta data (page cover and icon) and page blocks.
+  The [`ParsedPage`](./packages/client/lib/types.ts) generic interface wraps the collection properties (aka props, which extend `DatabaseProps`) as well as meta data (page cover and icon).
+  The `ParsedPageWithBlocks` interface also contains page blocks.
 
 - Then we're going to extract the UUID of the collection we wish to load. One way to find this UUID is to run the following script in the browser console:
   ```js
@@ -51,14 +76,19 @@ Use properties of any type to represent your data.
       )
     );
   ```
-  This well print the UUIDs of all the collections in the current page.
-- Finally we can call the `notion.loadCollection` method to load
+  This will print the UUIDs of all the collections in the current page.
 
+- Finally we can call the `notion.loadDatabase` method to load entries in a database (without blocks):
   ```ts
-  const PagesCollectionId = "bc0e5612-c5a1-4e3d-9d63-13bac995e5a2";
+  const recipesCollectionId = "bc0e5612-c5a1-4e3d-9d63-13bac995e5a2";
 
-  const getPages = (): Promise<Page[]> =>
-    notion.loadCollection(sectionsCollectionId);
+  const getRecipes = (): Promise<Recipe[]> =>
+    notion.loadDatabase(recipesCollectionId, {});
+  ```
+  Or the `notion.loadPage` method to load a single page (with blocks):
+  ```ts
+  const getRecipe = (recipeId: string): Promise<RecipeWithBlocks> =>
+    notion.loadPage(recipeId);
   ```
 
 ### Rendering blocks
@@ -72,34 +102,5 @@ const PageComponent = ({ page }) => (
   <div>
     <Blocks blocks={page.blocks} />
   </div>
-);
-```
-
-### Loading private data
-
-If the data you're trying to load isn't publicly readable you will need to provide an API token to the `Notion` class. Your current token can be found in the `token_v2` cookie.
-
-```ts
-import Notion from "@notion-cms/client";
-
-export const notion = new Notion(process.env.NOTION_API_KEY);
-```
-
-> ⚠ This token expires regularly so you will need to keep this value up-to-date.
-
-### Downloading private images
-
-If you're loading private data that contains images then you won't be able to point your users directly to Notion's URL.
-That's because Notion will protect those images too and only authenticated Notion users are given access.
-One way to avoid this issue is to download those images at build time and serve them ourselves to our visitors.
-
-`notion-cms` provides a convenient method to do exactly that:
-
-```ts
-return notion.downloadImage(
-  page.id,
-  page.meta.cover,
-  path.resolve(process.cwd(), `./public/${page.id}.png`),
-  40 // image width
 );
 ```
