@@ -8,6 +8,7 @@ import RTO from "./RTO";
 import Toggle from "./components/Toggle";
 import Column from "./components/Column";
 import { Blocks } from ".";
+import Video, { ExternalVideoBlock } from "./components/Video";
 
 const log = debug("notion-cms:react");
 
@@ -120,6 +121,14 @@ const Block: React.FC<Props> = ({ block }) => {
           ))}
         </Column.List>
       );
+    case "video":
+      switch (block.video.type) {
+        case "external":
+          return <Video block={block as ExternalVideoBlock} />;
+        default:
+          log('Ignoring unknown video type "%s": %O', block.video.type, block);
+          return null;
+      }
 
     // We're not rendering those block types;
     case "unsupported":
