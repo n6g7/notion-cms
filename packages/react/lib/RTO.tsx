@@ -43,7 +43,9 @@ const TextRTO: React.FC<TextProps> = ({ object }) => {
     <React.Fragment key="base">
       {text.content
         .split("\n")
-        .flatMap((val, index) => (index > 0 ? [<br />, val] : [val]))}
+        .flatMap((val, index) =>
+          index > 0 ? [<br key={`br-${index}`} />, val] : [val]
+        )}
     </React.Fragment>
   );
 
