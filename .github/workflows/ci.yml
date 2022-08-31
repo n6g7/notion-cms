@@ -35,3 +35,7 @@ jobs:
 
       - name: Build
         run: yarn build
+
+      - name: Build storybook
+        run: yarn build-storybook
+        working-directory: packages/react
