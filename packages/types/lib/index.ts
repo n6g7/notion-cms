@@ -13,6 +13,8 @@ export {
   ImageBlock,
   NumberedListItemBlock,
   ParagraphBlock,
+  TableBlock,
+  TableRowBlock,
   VideoBlock,
   EmojiObject,
   FileObject,

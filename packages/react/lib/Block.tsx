@@ -1,6 +1,6 @@
 import React from "react";
 import debug from "debug";
-import { Block as BlockType } from "@notion-cms/types";
+import { Block as BlockType, TableRowBlock } from "@notion-cms/types";
 
 import Bookmark from "./components/Bookmark";
 import Callout from "./components/Callout";
@@ -114,6 +114,30 @@ const Block: React.FC<Props> = ({ block }) => {
       }
     case "code":
       return <Code block={block} />;
+    case "table":
+      return (
+        <table>
+          {(
+            block.children.filter(
+              (b) => b.type === "table_row"
+            ) as TableRowBlock[]
+          ).map((row, rowIndex) => (
+            <tr key={row.id}>
+              {row.table_row.cells.map((cell, colIndex) => {
+                const header =
+                  (block.table.has_column_header && rowIndex == 0) ||
+                  (block.table.has_row_header && colIndex == 0);
+                const Cell = header ? "th" : "td";
+                return (
+                  <Cell key={colIndex}>
+                    <RTO objects={cell} />
+                  </Cell>
+                );
+              })}
+            </tr>
+          ))}
+        </table>
+      );
 
     // We're not rendering those block types;
     case "unsupported":
