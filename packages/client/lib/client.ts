@@ -11,13 +11,14 @@ import debug from "debug";
 
 import { DatabaseProps, ParsedPage, ParsedPageWithBlocks } from "./types";
 import { parsePage } from "./parse";
+import { Filter } from "./filters";
 
 const log = debug("notion-cms:client");
 
 interface LoadDatabaseOpts {
   limit?: number;
   pageSize?: number;
-  filter?: any;
+  filter?: Filter;
 }
 
 class NotionClient extends Client {
