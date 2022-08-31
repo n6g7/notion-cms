@@ -15,4 +15,6 @@ const Column: ColType = styled.div`
   flex-grow: 1;
 `;
 
+Column.List = List;
+
 export default Column;

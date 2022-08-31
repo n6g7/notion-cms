@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
-import { Blocks, BlockType } from "@notion-cms/types";
+import { Blocks as BlocksType, BlockType } from "@notion-cms/types";
 import Block from "./Block";
 import DebugWrapper from "./Debug";
 
 interface Props {
-  blocks: Blocks;
+  blocks: BlocksType;
   debug?: boolean;
 }
 

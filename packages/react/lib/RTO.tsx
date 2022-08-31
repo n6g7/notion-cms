@@ -4,8 +4,6 @@ import {
   TextRTO as TextRTOType,
   MentionRTO as MentionRTOType,
   Color,
-  TextRTO,
-  MentionRTO,
 } from "@notion-cms/types";
 import debug from "debug";
 

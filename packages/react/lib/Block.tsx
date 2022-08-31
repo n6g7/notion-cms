@@ -1,6 +1,6 @@
 import React from "react";
 import debug from "debug";
-import { Block } from "@notion-cms/types";
+import { Block as BlockType } from "@notion-cms/types";
 
 import Bookmark from "./components/Bookmark";
 import Callout from "./components/Callout";
@@ -12,7 +12,7 @@ import { Blocks } from ".";
 const log = debug("notion-cms:react");
 
 export interface Props {
-  block: Block;
+  block: BlockType;
 }
 
 const languageMapping = {
