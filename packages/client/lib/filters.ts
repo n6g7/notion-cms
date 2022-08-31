@@ -143,6 +143,10 @@ interface SelectFilter extends PropertyFilter<"select"> {
   select: SelectFilterCondition;
 }
 
+interface StatusFilter extends PropertyFilter<"status"> {
+  status: SelectFilterCondition;
+}
+
 interface MultiSelectFilter extends PropertyFilter<"multi_select"> {
   multi_select: MultiSelectFilterCondition;
 }
@@ -190,6 +194,7 @@ export type AtomicFilter =
   | NumberFilter
   | CheckboxFilter
   | SelectFilter
+  // | StatusFilter // Uncomment when @notionhq/client supports status filters
   | MultiSelectFilter
   | DateFilter
   | PeopleFilter

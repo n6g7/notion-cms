@@ -36,6 +36,14 @@ export interface SelectProperty extends BaseProperty<"select"> {
   } | null;
 }
 
+export interface StatusProperty extends BaseProperty<"status"> {
+  status?: {
+    id: UUID;
+    name: string;
+    color: Color;
+  } | null;
+}
+
 export interface MultiSelectProperty extends BaseProperty<"multi_select"> {
   multi_select?: {
     id: UUID;
@@ -193,6 +201,7 @@ export type Property =
   | RichTextProperty
   | NumberProperty
   | SelectProperty
+  | StatusProperty
   | MultiSelectProperty
   | DateProperty
   | FormulaProperty

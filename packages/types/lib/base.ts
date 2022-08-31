@@ -50,6 +50,7 @@ export type PropertyType =
   | "rich_text"
   | "number"
   | "select"
+  | "status"
   | "multi_select"
   | "date"
   | "formula"

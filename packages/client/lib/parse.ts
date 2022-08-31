@@ -26,6 +26,9 @@ export async function parseProperty(
     case "select":
       return property.select?.name || null;
 
+    case "status":
+      return property.status?.name || null;
+
     case "multi_select":
       return property.multi_select.map((x) => x.name);
 
