@@ -9,30 +9,13 @@ import Toggle from "./components/Toggle";
 import Column from "./components/Column";
 import { Blocks } from ".";
 import Video, { ExternalVideoBlock } from "./components/Video";
+import Code from "./components/Code";
 
 const log = debug("notion-cms:react");
 
 export interface Props {
   block: BlockType;
 }
-
-const languageMapping = {
-  Bash: "bash",
-  CSS: "css",
-  Docker: "docker",
-  GraphQL: "graphql",
-  HTML: "html",
-  JavaScript: "javascript",
-  JSON: "json",
-  Makefile: "makefile",
-  Markdown: "markdown",
-  PHP: "php",
-  Python: "python",
-  Shell: "bash",
-  SQL: "sql",
-  TypeScript: "typescript",
-  YAML: "yaml",
-};
 
 const Block: React.FC<Props> = ({ block }) => {
   switch (block.type) {
@@ -129,6 +112,8 @@ const Block: React.FC<Props> = ({ block }) => {
           log('Ignoring unknown video type "%s": %O', block.video.type, block);
           return null;
       }
+    case "code":
+      return <Code block={block} />;
 
     // We're not rendering those block types;
     case "unsupported":

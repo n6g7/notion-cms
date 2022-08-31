@@ -6,6 +6,7 @@ export {
   BookmarkBlock,
   BulletedListItemBlock,
   CalloutBlock,
+  CodeBlock,
   Heading1Block,
   Heading2Block,
   Heading3Block,
