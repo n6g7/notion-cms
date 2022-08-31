@@ -54,11 +54,7 @@ class NotionClient extends Client {
     );
   }
 
-  async loadPageBlocks(
-    pageId: UUID,
-    deep: boolean = true,
-    pageSize: number = 100
-  ) {
+  async loadPageBlocks(pageId: UUID, deep = true, pageSize = 100) {
     log("Loading blocks for page %s...", pageId);
     let response: List<Block> = await this.blocks.children.list({
       block_id: pageId,

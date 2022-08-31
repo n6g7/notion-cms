@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node_version: ["12", "14", "16"]
+        node_version: ["16", "18"]
 
     steps:
       - uses: actions/checkout@v2
@@ -23,6 +23,12 @@ jobs:
 
       - name: Setup lerna
         run: yarn setup
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Check format
+        run: yarn format
 
       - name: Run tests
         run: yarn test

@@ -78,28 +78,24 @@ const Block: React.FC<Props> = ({ block }) => {
       );
     case "bulleted_list_item":
     case "numbered_list_item":
-      const richTextObjects =
-        block.type == "bulleted_list_item"
-          ? block.bulleted_list_item?.text
-          : block.numbered_list_item?.text;
-
-      let children = null;
-      if (block.has_children) {
-        const Wrapper =
-          block.children[0].type === "bulleted_list_item" ? "ul" : "ol";
-        children = (
-          <Wrapper>
-            {block.children.map((block) => (
-              <Block block={block} key={block.id} />
-            ))}
-          </Wrapper>
-        );
-      }
-
       return (
         <li key={block.id}>
-          <RTO objects={richTextObjects} />
-          {children}
+          <RTO
+            objects={
+              block.type == "bulleted_list_item"
+                ? block.bulleted_list_item?.text
+                : block.numbered_list_item?.text
+            }
+          />
+          {block.has_children &&
+            React.createElement(
+              block.children[0].type === "bulleted_list_item" ? "ul" : "ol",
+              {
+                children: block.children.map((block) => (
+                  <Block block={block} key={block.id} />
+                )),
+              }
+            )}
         </li>
       );
     case "divider":

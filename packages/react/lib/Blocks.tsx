@@ -21,7 +21,7 @@ const Blocks: React.FC<Props> = ({ blocks, debug = false }) => {
     const elements = [];
     let listType: ListType = null;
     let listItems = [];
-    for (let block of blocks) {
+    for (const block of blocks) {
       // Finshing previous list
       if (listType && block.type !== listType) {
         const ListComponent = listMapping[listType];
