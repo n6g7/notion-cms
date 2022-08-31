@@ -1,6 +1,6 @@
 {
   "name": "@notion-cms/react",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "React components to render Notion.so blocks.",
   "author": "Nathan Gaberel <nathan@gnab.fr>",
   "homepage": "",
@@ -21,7 +21,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@notion-cms/types": "^0.1.0",
+    "@notion-cms/types": "^0.2.0",
     "debug": "^4.3.4",
     "highlight.js": "^11.6.0",
     "styled-components": "^5.3.5"
