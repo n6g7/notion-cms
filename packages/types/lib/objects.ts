@@ -1,6 +1,7 @@
 import {
   BlockType,
   CodeLanguage,
+  Color,
   ISO8601Date,
   ObjectType,
   URL,
@@ -46,7 +47,7 @@ export type User = EmptyUser | PersonUser | BotUser;
 // PAGES
 
 interface BaseParent {
-  type: "database_id" | "page_id" | "workspace";
+  type: "database_id" | "page_id" | "block_id" | "workspace";
 }
 interface DatabaseParent extends BaseParent {
   type: "database_id";
@@ -56,22 +57,26 @@ interface PageParent extends BaseParent {
   type: "page_id";
   page_id: UUID;
 }
+interface BlockParent extends BaseParent {
+  type: "block_id";
+  block_id: UUID;
+}
 interface WorkspaceParent extends BaseParent {
   type: "workspace";
   workspace: true;
 }
-type Parent = DatabaseParent | PageParent | WorkspaceParent;
+type Parent = DatabaseParent | PageParent | BlockParent | WorkspaceParent;
 
 export interface Page extends BaseObject<"page"> {
   id: UUID;
-  created_time: ISO8601Date;
-  last_edited_time: ISO8601Date;
-  archived: boolean;
-  icon: FileObject | EmojiObject | null;
-  cover: FileObject | null;
-  properties: Record<string, Property>;
-  parent: Parent;
-  url: URL;
+  created_time?: ISO8601Date;
+  last_edited_time?: ISO8601Date;
+  archived?: boolean;
+  icon?: FileObject | EmojiObject | null;
+  cover?: FileObject | null;
+  properties?: Record<string, Property>;
+  parent?: Parent;
+  url?: URL;
 }
 
 // FILES
@@ -110,42 +115,46 @@ export interface EmojiObject {
 
 export interface BaseBlock<T extends BlockType> extends BaseObject<"block"> {
   id: UUID;
-  created_time: ISO8601Date;
-  last_edited_time: ISO8601Date;
-  has_children: boolean;
-  archived: boolean;
-  type: T;
+  created_time?: ISO8601Date;
+  last_edited_time?: ISO8601Date;
+  has_children?: boolean;
+  archived?: boolean;
+  type?: T;
   children?: Blocks;
 }
 
 export interface ParagraphBlock extends BaseBlock<"paragraph"> {
   paragraph: {
-    text: RichTextObject[];
-    children?: Block[];
+    rich_text: RichTextObject[];
+    color: Color;
   };
 }
 
 export interface Heading1Block extends BaseBlock<"heading_1"> {
   heading_1: {
-    text: RichTextObject[];
+    rich_text: RichTextObject[];
+    color: Color;
   };
 }
 
 export interface Heading2Block extends BaseBlock<"heading_2"> {
   heading_2: {
-    text: RichTextObject[];
+    rich_text: RichTextObject[];
+    color: Color;
   };
 }
 
 export interface Heading3Block extends BaseBlock<"heading_3"> {
   heading_3: {
-    text: RichTextObject[];
+    rich_text: RichTextObject[];
+    color: Color;
   };
 }
 
 export interface CalloutBlock extends BaseBlock<"callout"> {
   callout: {
-    text: RichTextObject[];
+    rich_text: RichTextObject[];
+    color: Color;
     icon: FileObject | EmojiObject;
     children?: Blocks;
   };
@@ -153,28 +162,32 @@ export interface CalloutBlock extends BaseBlock<"callout"> {
 
 export interface QuoteBlock extends BaseBlock<"quote"> {
   quote: {
-    text: RichTextObject[];
+    rich_text: RichTextObject[];
+    color: Color;
     children?: Blocks;
   };
 }
 
 export interface BulletedListItemBlock extends BaseBlock<"bulleted_list_item"> {
   bulleted_list_item: {
-    text: RichTextObject[];
+    rich_text: RichTextObject[];
+    color: Color;
     children?: Blocks;
   };
 }
 
 export interface NumberedListItemBlock extends BaseBlock<"numbered_list_item"> {
   numbered_list_item: {
-    text: RichTextObject[];
+    rich_text: RichTextObject[];
+    color: Color;
     children?: Blocks;
   };
 }
 
 export interface ToDoBlock extends BaseBlock<"to_do"> {
   to_do: {
-    text: RichTextObject[];
+    rich_text: RichTextObject[];
+    color: Color;
     checked?: boolean;
     children?: Blocks;
   };
@@ -182,14 +195,16 @@ export interface ToDoBlock extends BaseBlock<"to_do"> {
 
 export interface ToggleBlock extends BaseBlock<"toggle"> {
   toggle: {
-    text: RichTextObject[];
+    rich_text: RichTextObject[];
+    color: Color;
     children?: Blocks;
   };
 }
 
 export interface CodeBlock extends BaseBlock<"code"> {
   code: {
-    text: RichTextObject[];
+    rich_text: RichTextObject[];
+    caption: RichTextObject[];
     language: CodeLanguage;
   };
 }
@@ -246,7 +261,9 @@ export interface DividerBlock extends BaseBlock<"divider"> {
 }
 
 export interface TOCBlock extends BaseBlock<"table_of_contents"> {
-  table_of_contents: Record<string, never>;
+  table_of_contents: {
+    color: Color;
+  };
 }
 
 export interface BreadcrumbBlock extends BaseBlock<"breadcrumb"> {
@@ -288,6 +305,19 @@ export interface LinkPreviewBlock extends BaseBlock<"link_preview"> {
   link_preview: { url: string };
 }
 
+export interface TableBlock extends BaseBlock<"table"> {
+  table: {
+    has_column_header: boolean;
+    has_row_header: boolean;
+    table_width: number;
+  };
+}
+export interface TableRowBlock extends BaseBlock<"table_row"> {
+  table_row: {
+    cells: RichTextObject[][];
+  };
+}
+
 export interface UnsupportedBlock extends BaseBlock<"unsupported"> {
   unsupported?: Record<string, never>;
 }
@@ -323,5 +353,7 @@ export type Block =
   | LinkToPageBlock
   | AudioBlock
   | LinkPreviewBlock
+  | TableBlock
+  | TableRowBlock
   | UnsupportedBlock;
 export type Blocks = Block[];

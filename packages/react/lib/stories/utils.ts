@@ -39,7 +39,8 @@ export const makeBlock = <T extends BlockType>(type: T): BaseBlock<T> => ({
 export const makeParagraph = (text: string): ParagraphBlock => ({
   ...makeBlock("paragraph"),
   paragraph: {
-    text: makeRTO(text),
+    rich_text: makeRTO(text),
+    color: "default",
   },
 });
 

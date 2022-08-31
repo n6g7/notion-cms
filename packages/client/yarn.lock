@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.1.0.tgz#5316048baa68b31879899fe42b2d03ea16d4940f"
   integrity sha512-XSwHjpTsv0/Hz2KdS7f/5wSodxrIqjLq6UPpGFNT6RRKcjFnV6zQC9cFA4WgHI4/G3U6Vxp5mFUnws1nIZEoCw==
 
-"@notionhq/client@^0.4.8":
-  version "0.4.8"
-  resolved "https://registry.yarnpkg.com/@notionhq/client/-/client-0.4.8.tgz#806a52952616ab313affb2969718dedd0e1e2fb8"
-  integrity sha512-FIUno6Bnrnl3N/nkdBZ0s8yV1nBGeZJ9qf8k6IW5RoPp2FNy3Eb7QAkafg+x8MnI4HFAXs6gqNPv5A2eqpRIvQ==
+"@notionhq/client@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@notionhq/client/-/client-2.1.1.tgz#3dfe84054d27fb95144ff26f1fe373adebb0e362"
+  integrity sha512-2B5riO5pk+M4HrKd2eL8bWTdKvfsTSLU8UU19F+uq0NUq5DPvG2iCTNO+l5l+M3DU2BZLK1SZzLxHa+8NaOkIw==
   dependencies:
     "@types/node-fetch" "^2.5.10"
     node-fetch "^2.6.1"

@@ -69,7 +69,6 @@ type RelationFilterCondition =
   | { is_not_empty: true };
 
 type NestedRollupFilters =
-  | TextFilter
   | NumberFilter
   | CheckboxFilter
   | SelectFilter
@@ -87,7 +86,7 @@ type RollupFilterCondition =
   | { date: DateFilterCondition };
 
 type FormulaFilterCondition =
-  | { text: TextFilterCondition }
+  | { string: TextFilterCondition }
   | { checkbox: CheckboxFilterCondition }
   | { number: NumberFilterCondition }
   | { date: DateFilterCondition };
@@ -110,11 +109,6 @@ interface LastEditedTimeFilter extends TimestampFilter<"last_edited_time"> {
 interface PropertyFilter<T extends PropertyType | "text"> {
   property: string;
   type?: T;
-}
-
-// Weird special value used by rollup
-interface TextFilter extends PropertyFilter<"text"> {
-  text: TextFilterCondition;
 }
 
 interface RichTextFilter extends PropertyFilter<"rich_text"> {

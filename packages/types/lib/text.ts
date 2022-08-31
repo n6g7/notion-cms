@@ -24,7 +24,13 @@ export interface TextRTO extends BaseRichTextObject {
 }
 
 interface BaseMention {
-  type: "user" | "page" | "database" | "date" | "link_preview";
+  type:
+    | "user"
+    | "page"
+    | "database"
+    | "date"
+    | "link_preview"
+    | "template_mention";
 }
 interface UserMention extends BaseMention {
   type: "user";
@@ -48,12 +54,25 @@ interface LinkPreviewMention extends BaseMention {
     url: URL;
   };
 }
+interface TemplateMention extends BaseMention {
+  type: "template_mention";
+  template_mention:
+    | {
+        type: "template_mention_date";
+        template_mention_date: "today" | "now";
+      }
+    | {
+        type: "template_mention_user";
+        template_mention_user: "me";
+      };
+}
 type MentionObject =
   | UserMention
   | PageMention
   | DatabaseMention
   | DateMention
-  | LinkPreviewMention;
+  | LinkPreviewMention
+  | TemplateMention;
 export interface MentionRTO extends BaseRichTextObject {
   type: "mention";
   mention: MentionObject;

@@ -10,26 +10,26 @@ import { ExternalFileObject, NotionFileObject, User } from "./objects";
 import { RichTextObject } from "./text";
 
 interface BaseProperty<T extends PropertyType> {
-  type: T;
+  type?: T;
   id: string;
 }
 
 // DATABASE
 
 export interface TitleProperty extends BaseProperty<"title"> {
-  title: RichTextObject[];
+  title?: RichTextObject[];
 }
 
 export interface RichTextProperty extends BaseProperty<"rich_text"> {
-  rich_text: RichTextObject[];
+  rich_text?: RichTextObject[];
 }
 
 export interface NumberProperty extends BaseProperty<"number"> {
-  number: number;
+  number?: number;
 }
 
 export interface SelectProperty extends BaseProperty<"select"> {
-  select: {
+  select?: {
     id: UUID;
     name: string;
     color: Color;
@@ -37,7 +37,7 @@ export interface SelectProperty extends BaseProperty<"select"> {
 }
 
 export interface MultiSelectProperty extends BaseProperty<"multi_select"> {
-  multi_select: {
+  multi_select?: {
     id: UUID;
     name: string;
     color: Color;
@@ -45,7 +45,7 @@ export interface MultiSelectProperty extends BaseProperty<"multi_select"> {
 }
 
 export interface DateProperty extends BaseProperty<"date"> {
-  date: {
+  date?: {
     start: ISO8601Date;
     end: ISO8601Date | null;
   } | null;
@@ -76,11 +76,11 @@ type FormulaValue =
   | BooleanFormulaValue
   | DateFormulaValue;
 export interface FormulaProperty extends BaseProperty<"formula"> {
-  formula: FormulaValue;
+  formula?: FormulaValue;
 }
 
 export interface RelationProperty extends BaseProperty<"relation"> {
-  relation: { id: UUID }[];
+  relation?: { id: UUID }[];
 }
 
 interface BaseRollupValue {
@@ -137,11 +137,11 @@ type RollupValue =
   | ArrayRollupValue
   | UnsupportedRollupValue;
 export interface RollupProperty extends BaseProperty<"rollup"> {
-  rollup: RollupValue;
+  rollup?: RollupValue;
 }
 
 export interface PeopleProperty extends BaseProperty<"people"> {
-  people: User[];
+  people?: User[];
 }
 
 interface NotionFileReference extends NotionFileObject {
@@ -152,40 +152,40 @@ interface ExternalFileReference extends ExternalFileObject {
 }
 type FileReference = NotionFileReference | ExternalFileReference;
 export interface FilesProperty extends BaseProperty<"files"> {
-  files: FileReference[];
+  files?: FileReference[];
 }
 
 export interface CheckboxProperty extends BaseProperty<"checkbox"> {
-  checkbox: boolean;
+  checkbox?: boolean;
 }
 
 export interface URLProperty extends BaseProperty<"url"> {
-  url: URL | null;
+  url?: URL | null;
 }
 
 export interface EmailProperty extends BaseProperty<"email"> {
-  email: string | null;
+  email?: string | null;
 }
 
 export interface PhoneNumberProperty extends BaseProperty<"phone_number"> {
-  phone_number: string | null;
+  phone_number?: string | null;
 }
 
 export interface CreatedTimeProperty extends BaseProperty<"created_time"> {
-  created_time: ISO8601Date;
+  created_time?: ISO8601Date;
 }
 
 export interface CreatedByProperty extends BaseProperty<"created_by"> {
-  created_by: User;
+  created_by?: User;
 }
 
 export interface LastEditedTimeProperty
   extends BaseProperty<"last_edited_time"> {
-  last_edited_time: ISO8601Date;
+  last_edited_time?: ISO8601Date;
 }
 
 export interface LastEditedByProperty extends BaseProperty<"last_edited_by"> {
-  last_edited_by: User;
+  last_edited_by?: User;
 }
 
 export type Property =

@@ -38,25 +38,25 @@ const Block: React.FC<Props> = ({ block }) => {
     case "heading_1":
       return (
         <h1 key={block.id}>
-          <RTO objects={block.heading_1.text} />
+          <RTO objects={block.heading_1.rich_text} />
         </h1>
       );
     case "heading_2":
       return (
         <h2 key={block.id}>
-          <RTO objects={block.heading_2.text} />
+          <RTO objects={block.heading_2.rich_text} />
         </h2>
       );
     case "heading_3":
       return (
         <h3 key={block.id}>
-          <RTO objects={block.heading_3.text} />
+          <RTO objects={block.heading_3.rich_text} />
         </h3>
       );
     case "paragraph":
       return (
         <p key={block.id}>
-          <RTO objects={block.paragraph.text} />
+          <RTO objects={block.paragraph.rich_text} />
         </p>
       );
     case "image":
@@ -83,8 +83,8 @@ const Block: React.FC<Props> = ({ block }) => {
           <RTO
             objects={
               block.type == "bulleted_list_item"
-                ? block.bulleted_list_item?.text
-                : block.numbered_list_item?.text
+                ? block.bulleted_list_item?.rich_text
+                : block.numbered_list_item?.rich_text
             }
           />
           {block.has_children &&
@@ -103,13 +103,13 @@ const Block: React.FC<Props> = ({ block }) => {
     case "callout":
       return (
         <Callout key={block.id} icon={block.callout.icon}>
-          <RTO objects={block.callout.text} />
+          <RTO objects={block.callout.rich_text} />
         </Callout>
       );
     case "bookmark":
       return <Bookmark key={block.id} block={block} />;
     case "toggle":
-      return <Toggle title={block.toggle.text} content={block.children} />;
+      return <Toggle title={block.toggle.rich_text} content={block.children} />;
     case "column_list":
       return (
         <Column.List>

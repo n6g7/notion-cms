@@ -42,6 +42,8 @@ export type BlockType =
   | "link_to_page"
   | "audio"
   | "link_preview"
+  | "table"
+  | "table_row"
   | "unsupported";
 
 export type PropertyType =
@@ -148,6 +150,7 @@ export type CodeLanguage =
   | "scheme"
   | "scss"
   | "shell"
+  | "solidity"
   | "sql"
   | "swift"
   | "typescript"
