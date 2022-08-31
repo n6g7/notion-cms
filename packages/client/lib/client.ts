@@ -82,15 +82,13 @@ class NotionClient extends Client {
     if (deep) {
       log("Page %s: loading nested blocks...", pageId);
 
-      const promises = blocks.map(
-        (block): Promise<Block> => {
-          if (!block.has_children) return Promise.resolve(block);
-          return this.loadPageBlocks(block.id).then((children) => ({
-            ...block,
-            children,
-          }));
-        }
-      );
+      const promises = blocks.map((block): Promise<Block> => {
+        if (!block.has_children) return Promise.resolve(block);
+        return this.loadPageBlocks(block.id).then((children) => ({
+          ...block,
+          children,
+        }));
+      });
       blocks = await Promise.all(promises);
     }
 

@@ -1,11 +1,13 @@
 import React, { useMemo } from "react";
 import { BookmarkBlock } from "@notion-cms/types";
+import RTO from "../RTO";
 
 interface Props {
   block: BookmarkBlock;
 }
 
-const urlRegExp = /^(?<scheme>https?):\/\/(?<host>(?<hostname>[a-z0-9.]+)(:(?<port>\d+))?)(?<path>\/[a-zA-Z0-9_/.-]*)?(?<query>\?((?<name>[a-zA-Z0-9_-]+)=(?<value>[a-zA-Z0-9-]+)&?)*)?(?<anchor>#([a-zA-Z0-9_-]*))?$/;
+const urlRegExp =
+  /^(?<scheme>https?):\/\/(?<host>(?<hostname>[a-z0-9.]+)(:(?<port>\d+))?)(?<path>\/[a-zA-Z0-9_/.-]*)?(?<query>\?((?<name>[a-zA-Z0-9_-]+)=(?<value>[a-zA-Z0-9-]+)&?)*)?(?<anchor>#([a-zA-Z0-9_-]*))?$/;
 
 function Bookmark({ block }: Props) {
   const hostname = useMemo(() => {
@@ -60,7 +62,7 @@ function Bookmark({ block }: Props) {
               padding: "6px 0 6px 2px",
             }}
           >
-            {block.bookmark.caption}
+            <RTO objects={block.bookmark.caption} />
           </p>
         )}
       </div>
