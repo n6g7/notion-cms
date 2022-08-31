@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@notion-cms/types@^0.0.45":
-  version "0.0.45"
-  resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.0.45.tgz#7cd3afc1a6d17438e3eff0ac73c01a7b52b8d9ca"
-  integrity sha512-mnCtPKm6ZheqkZ1L8B2A0U39JuBaLXAtVfPmWFscCxtOpizGrrr8oxnjQakPDCKZbymVvRKZ4j67Usuwx9wf3A==
+"@notion-cms/types@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.1.0.tgz#5316048baa68b31879899fe42b2d03ea16d4940f"
+  integrity sha512-XSwHjpTsv0/Hz2KdS7f/5wSodxrIqjLq6UPpGFNT6RRKcjFnV6zQC9cFA4WgHI4/G3U6Vxp5mFUnws1nIZEoCw==
 
 "@notionhq/client@^0.4.8":
   version "0.4.8"
@@ -22,10 +22,10 @@
   dependencies:
     "@types/ms" "*"
 
-"@types/lodash@^4.14.177":
-  version "4.14.177"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.177.tgz#f70c0d19c30fab101cad46b52be60363c43c4578"
-  integrity sha512-0fDwydE2clKe9MNfvXHBHF9WEahRuj+msTuQqOmAApNORFvhMYZKNGGJdCzuhheVjMps/ti0Ak/iJPACMaevvw==
+"@types/lodash@^4.14.184":
+  version "4.14.184"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.184.tgz#23f96cd2a21a28e106dc24d825d4aa966de7a9fe"
+  integrity sha512-RoZphVtHbxPZizt4IcILciSWiC6dcn+eZ8oX9IWEYfDMcocdd42f7NPI6fQj+6zI8y4E0L7gu2pcZKLGTRaV9Q==
 
 "@types/ms@*":
   version "0.7.31"
@@ -57,10 +57,10 @@ combined-stream@^1.0.8:
   dependencies:
     delayed-stream "~1.0.0"
 
-debug@^4.1.1:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.2.tgz#f0a49c18ac8779e31d4a0c6029dfb76873c7428b"
-  integrity sha512-mOp8wKcvj7XxC78zLgw/ZA+6TSgkoE2C/ienthhRD298T7UNwAg9diBpLRxC0mOezLl4B0xV7M0cCO6P/O0Xhw==
+debug@^4.3.4:
+  version "4.3.4"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.4.tgz#1319f6579357f2338d3337d2cdd4914bb5dcc865"
+  integrity sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==
   dependencies:
     ms "2.1.2"
 
