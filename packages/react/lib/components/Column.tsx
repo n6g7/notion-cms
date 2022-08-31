@@ -1,4 +1,4 @@
-import styled, { StyledComponent } from "styled-components";
+import styled from "styled-components";
 
 const List = styled.div`
   display: flex;
@@ -7,8 +7,10 @@ const List = styled.div`
   padding: 0;
 `;
 
-type ColType = StyledComponent<"div", any, {}, never> & {
-  List?: typeof List;
+type Div = typeof List;
+
+type ColType = Div & {
+  List?: Div;
 };
 
 const Column: ColType = styled.div`

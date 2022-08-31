@@ -242,23 +242,23 @@ export interface EquationBlock extends BaseBlock<"equation"> {
 }
 
 export interface DividerBlock extends BaseBlock<"divider"> {
-  divider: {};
+  divider: Record<string, never>;
 }
 
 export interface TOCBlock extends BaseBlock<"table_of_contents"> {
-  table_of_contents: {};
+  table_of_contents: Record<string, never>;
 }
 
 export interface BreadcrumbBlock extends BaseBlock<"breadcrumb"> {
-  breadcrumb: {};
+  breadcrumb: Record<string, never>;
 }
 
 export interface ColumnListBlock extends BaseBlock<"column_list"> {
-  column_list: {};
+  column_list: Record<string, never>;
 }
 
 export interface ColumnBlock extends BaseBlock<"column"> {
-  column: {};
+  column: Record<string, never>;
 }
 
 export interface TemplateBlock extends BaseBlock<"template"> {
@@ -289,7 +289,7 @@ export interface LinkPreviewBlock extends BaseBlock<"link_preview"> {
 }
 
 export interface UnsupportedBlock extends BaseBlock<"unsupported"> {
-  unsupported?: {};
+  unsupported?: Record<string, never>;
 }
 
 export type Block =

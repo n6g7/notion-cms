@@ -14,7 +14,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "pretest": "prettier --check 'lib/*.{ts,tsx}'",
+    "lint": "eslint lib",
+    "format": "prettier --check 'lib/*.{ts,tsx}'",
     "test": "jest --passWithNoTests"
   },
   "dependencies": {
