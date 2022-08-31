@@ -16,7 +16,9 @@
     "build": "tsc",
     "lint": "eslint lib",
     "format": "prettier --check 'lib/*.{ts,tsx}'",
-    "test": "jest --passWithNoTests"
+    "test": "jest --passWithNoTests",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@notion-cms/types": "^0.1.0",
@@ -25,10 +27,22 @@
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.5.10",
+    "@storybook/addon-essentials": "^6.5.10",
+    "@storybook/addon-interactions": "^6.5.10",
+    "@storybook/addon-links": "^6.5.10",
+    "@storybook/builder-webpack4": "^6.5.10",
+    "@storybook/manager-webpack4": "^6.5.10",
+    "@storybook/react": "^6.5.10",
+    "@storybook/testing-library": "^0.0.13",
     "@types/debug": "^4.1.5",
     "@types/react": "^18.0.18",
     "@types/styled-components": "^5.1.26",
-    "react": "^18.2.0"
+    "@types/uuid": "^8.3.4",
+    "babel-loader": "^8.2.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "uuid": "^8.3.2"
   },
   "peerDependencies": {
     "react": "^16.13.1"
