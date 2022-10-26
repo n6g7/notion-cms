@@ -194,7 +194,7 @@ export type AtomicFilter =
   | NumberFilter
   | CheckboxFilter
   | SelectFilter
-  // | StatusFilter // Uncomment when @notionhq/client supports status filters
+  | StatusFilter
   | MultiSelectFilter
   | DateFilter
   | PeopleFilter
