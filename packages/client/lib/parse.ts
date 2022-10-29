@@ -79,12 +79,14 @@ export async function parseProperty(
                   case "string":
                     return x.formula.string;
                   case "date":
-                    if (x.formula.date.end)
-                      return {
+                    if (x.formula.date) {
+                      return x.formula.date.end ? {
                         start: parseDate(x.formula.date.start),
                         end: parseDate(x.formula.date.end),
-                      };
-                    else return parseDate(x.formula.date.start);
+                      } : parseDate(x.formula.date.start);
+                    } else {
+                      return null;
+                    }
                   case "number":
                     return x.formula.number;
                   case "boolean":
@@ -156,6 +158,7 @@ export async function parsePage<T extends DatabaseProps>(
   return {
     id: page.id,
     meta: {
+      created_time: page.created_time,
       icon: page.icon
         ? "emoji" in page.icon
           ? page.icon.emoji

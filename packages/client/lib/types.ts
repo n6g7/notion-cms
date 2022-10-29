@@ -1,4 +1,4 @@
-import { Blocks, FilesProperty, URL, User } from "@notion-cms/types";
+import { Blocks, FilesProperty, URL, User, ISO8601Date } from "@notion-cms/types";
 
 export interface DatabaseProps {
   [key: string]:
@@ -15,6 +15,7 @@ export interface DatabaseProps {
 export interface ParsedPage<Props extends DatabaseProps> {
   id: string;
   meta: {
+    created_time: ISO8601Date;
     icon: URL;
     cover: URL;
   };
