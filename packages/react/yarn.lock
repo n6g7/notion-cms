@@ -1506,10 +1506,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@notion-cms/types@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.1.0.tgz#5316048baa68b31879899fe42b2d03ea16d4940f"
-  integrity sha512-XSwHjpTsv0/Hz2KdS7f/5wSodxrIqjLq6UPpGFNT6RRKcjFnV6zQC9cFA4WgHI4/G3U6Vxp5mFUnws1nIZEoCw==
+"@notion-cms/types@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.2.0.tgz#f42144345c45f5c6f2358a8df01ca4e01defe379"
+  integrity sha512-pKTogRIsFghWgLK9wtNanphynccdlvTfq2wxEJyxuDfhdFXlNJugZvgKYvs/JP/DMoMl7wcfrtTmz+59gWsePw==
 
 "@npmcli/fs@^1.0.0":
   version "1.1.1"
@@ -4601,9 +4601,9 @@ decamelize@^1.1.2:
   integrity sha512-z2S+W9X73hAUUki+N+9Za2lBlun89zigOyGrsax+KUQ6wKW4ZoWpEYBkGhQjwAjjDCkWxhY0VKEhk8wzY7F5cA==
 
 decode-uri-component@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
-  integrity sha512-hjf+xovcEn31w/EUYdTXQh/8smFL/dzYjohQGEIgjyNavaJfBY2p5F527Bo1VPATxv0VYTUC2bOcXvqFwk78Og==
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
+  integrity sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==
 
 dedent@^0.7.0:
   version "0.7.0"
