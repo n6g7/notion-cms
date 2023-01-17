@@ -66,7 +66,7 @@ Use properties of any type to represent your data.
   ```js
   document
     .querySelectorAll(
-      ".notion-collection_view-block > div > .notion-collection_view-block"
+      ".notion-page-content > .notion-collection_view-block"
     )
     .forEach((collection) =>
       console.log(
