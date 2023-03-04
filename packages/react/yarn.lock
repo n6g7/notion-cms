@@ -1506,10 +1506,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@notion-cms/types@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.1.0.tgz#5316048baa68b31879899fe42b2d03ea16d4940f"
-  integrity sha512-XSwHjpTsv0/Hz2KdS7f/5wSodxrIqjLq6UPpGFNT6RRKcjFnV6zQC9cFA4WgHI4/G3U6Vxp5mFUnws1nIZEoCw==
+"@notion-cms/types@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@notion-cms/types/-/types-0.2.0.tgz#f42144345c45f5c6f2358a8df01ca4e01defe379"
+  integrity sha512-pKTogRIsFghWgLK9wtNanphynccdlvTfq2wxEJyxuDfhdFXlNJugZvgKYvs/JP/DMoMl7wcfrtTmz+59gWsePw==
 
 "@npmcli/fs@^1.0.0":
   version "1.1.1"
@@ -7213,9 +7213,9 @@ minimatch@^3.0.2, minimatch@^3.0.4, minimatch@^3.1.1:
     brace-expansion "^1.1.7"
 
 minimist@^1.1.1, minimist@^1.1.3, minimist@^1.2.0, minimist@^1.2.5, minimist@^1.2.6:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.6.tgz#8637a5b759ea0d6e98702cfb3a9283323c93af44"
-  integrity sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.8.tgz#c1a464e7693302e082a075cee0c057741ac4772c"
+  integrity sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==
 
 minipass-collect@^1.0.2:
   version "1.0.2"
